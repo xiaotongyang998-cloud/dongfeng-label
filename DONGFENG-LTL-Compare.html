@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>东风 LTL 散板比价</title><style>
+:root{font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;color:#18283e;background:#f3f6fa;font-size:16px;--blue:#174ab5;--line:#dce4ee;--muted:#54667c}*{box-sizing:border-box}body{margin:0}header{background:#101f35;color:white}.shell{max-width:1280px;margin:auto;padding-inline:28px}.brand{height:70px;display:flex;gap:13px;align-items:center}.brand strong{letter-spacing:.09em}.brand span{font-size:.75rem;color:#b4c7e2;margin-left:12px}.logo{display:grid;place-items:center;background:#3972e9;border-radius:9px;width:39px;height:39px;font-weight:800}.hero,.section-head,.filter-head,.fields,.source{display:flex;align-items:center;justify-content:space-between;gap:15px}.hero{padding:35px 0 24px}h1,h2,p{margin:0}h1{font-size:clamp(1.7rem,4vw,2.65rem);letter-spacing:-.04em}h2{font-size:1.25rem}p{color:var(--muted);line-height:1.55}.hero p,.section-head p{margin-top:6px}.panel,.metric{background:white;border:1px solid var(--line);border-radius:12px}.filter,.upload{padding:20px}.tabs{display:flex;gap:5px;background:#eff3f9;padding:4px;border-radius:9px}.tabs button{border:0;background:none;color:var(--muted)}.tabs [aria-pressed=true]{background:white;color:var(--blue);box-shadow:0 1px 4px #18304725}.fields{justify-content:start;margin:16px 0;align-items:end}.search{flex:1}label{font-size:.9rem;font-weight:650}input,button{font:inherit}input{border:1px solid #bfcddd;background:white;border-radius:7px;color:inherit;padding:8px 10px}input[type=search]{display:block;width:100%;margin-top:5px}input[type=number]{width:75px}button,.file-button{font-size:.9rem;font-weight:700;cursor:pointer;border-radius:7px;padding:9px 13px;border:1px solid transparent;white-space:nowrap}.secondary,.file-button{background:white;border-color:#bdcbe0;color:var(--blue)}.primary{background:var(--blue);color:white}.plain{background:none;color:var(--muted)}button:hover,.file-button:hover{filter:brightness(.95)}button:disabled{opacity:.48;cursor:default}.choices{max-height:126px;overflow:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(103px,1fr));gap:6px;padding:2px}.choice{display:flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:7px;padding:4px;cursor:pointer}.choice:has(input:checked){background:#eaf1ff;border-color:#8eabe9;color:#14429e}.choice input{accent-color:var(--blue)}.minor,.foot{font-size:.85rem;color:var(--muted);margin-top:12px}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:16px 0}.metric{padding:15px 20px}.metric span,.metric small{display:block;color:var(--muted)}.metric strong{display:block;font-size:1.55rem;margin:3px 0}.section-head{padding:18px 20px}.table-wrap{overflow:auto;max-height:560px}table{border-collapse:separate;border-spacing:0;width:100%;min-width:860px;font-variant-numeric:tabular-nums}th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:middle}th{background:#edf2f8;position:sticky;top:0;z-index:1;font-size:.9rem}tbody tr:nth-child(even){background:#f9fbfe}td small{display:block;font-size:.78rem;color:var(--muted);margin-top:2px}.own{background:#eef4ff}.low{color:#087356}.high{color:#a83b29}.missing{color:var(--muted);font-size:.85rem}.rate{padding:0;background:none;color:inherit;white-space:normal;text-align:left}.rate:hover{text-decoration:underline}.foot{padding:0 20px 16px}.upload{margin:18px 0 35px}.upload .section-head,.upload .foot{padding:0}.source{padding:12px 0;border-bottom:1px solid var(--line)}.source div{min-width:0;overflow-wrap:anywhere}.source p{font-size:.84rem}.source input{position:absolute;width:1px;height:1px;clip-path:inset(50%)}.file-button:focus-within{outline:2px solid var(--blue)}#message{margin-top:8px;color:var(--blue)}dialog{border:1px solid var(--line);border-radius:12px;max-width:min(520px,95vw);padding:23px}dialog p{margin:10px 0;overflow-wrap:anywhere}dialog::backdrop{background:#101f3599}@media(max-width:650px){.shell{padding-inline:13px}.hero,.filter-head,.fields,.section-head{flex-wrap:wrap}.search{flex-basis:100%}.metric{padding:10px}.metric strong{font-size:1.15rem}.metrics{gap:6px}.brand span{display:none}}
+.brand nav{margin-left:auto;display:flex;gap:8px}.brand nav a,.action{display:inline-block;text-decoration:none;font-size:.9rem;font-weight:700;border:1px solid transparent;border-radius:7px;padding:9px 13px;white-space:nowrap}.brand nav a{color:#c7d7ed}.brand nav a[aria-current=page]{background:#253d60;color:white}.action.secondary{border-color:#bdcbe0}.manage-form{display:flex;flex-wrap:wrap;align-items:end;gap:12px;padding:14px 0}.manage-form label{display:grid;gap:5px}.manage-form input[type=number]{width:110px}.manage-form select{font:inherit;color:inherit;background:white;border:1px solid #bfcddd;border-radius:7px;padding:8px 10px}.note-field{flex:1;min-width:215px}#manual-message{margin:0 0 10px;color:var(--blue)}.manual-tag{color:#805c13}#compare-page{padding-bottom:32px}#manual-list td:nth-child(6){overflow-wrap:anywhere;max-width:250px}#manual-list td:last-child{white-space:nowrap}@media(max-width:650px){.brand nav a{padding:8px}.manage-form label{max-width:100%}}
+
+</style></head>
+<body>
+<header><div class="shell brand"><div class="logo">DF</div><div><strong>DONGFENG</strong><span>TRUCKING INC.</span></div><nav aria-label="主导航"><a href="#compare" id="nav-compare">运费比价</a><a href="#manage" id="nav-manage">报价管理</a></nav></div></header>
+<main class="shell"><div id="compare-page">
+ <div class="hero"><div><h1>散板运费比价</h1><p>对比亚马逊和沃尔玛仓的东风、启航、酷派及小桃报价。</p></div><a href="#manage" class="secondary action">更新报价表</a></div>
+ <section class="panel filter" aria-label="比价筛选">
+  <div class="filter-head"><div class="tabs" id="platforms"><button data-platform="全部" aria-pressed="true">全部仓库</button><button data-platform="Amazon" aria-pressed="false">亚马逊</button><button data-platform="Walmart" aria-pressed="false">沃尔玛</button></div><label>默认板数 <input id="qty" type="number" value="5" min="1" step="1" required></label></div>
+  <div class="fields"><label class="search">搜索或粘贴仓号<input id="query" type="search" placeholder="例如 ONT8 LGB8 LAX9"></label><button id="select" class="secondary">勾选搜索结果</button><button id="clear" class="plain">清空勾选</button></div>
+  <div id="choices" class="choices"></div>
+  <div class="minor" id="selected" aria-live="polite"></div>
+ </section>
+ <div id="metrics" class="metrics"></div>
+ <section class="panel results"><div class="section-head"><div><h2>仓库报价对比</h2><p>单位 USD。每个仓可以单独修改板数。</p></div><button id="export" class="primary">导出 Excel 可读 CSV</button></div>
+ <div class="table-wrap"><table><thead><tr><th>仓库</th><th>板数</th><th id="own-heading" class="own">东风</th><th>最低同行</th><th>东风差额</th></tr></thead><tbody id="results"></tbody></table></div>
+ <div class="foot">差额 = 东风整票金额 − 最低同行整票金额。汇总仅计入双方都有有效价格的仓。金额按标准托盘表价计算，另计的提货、超规等费用及实际承运成本需另行核实。点击价格可查看来源。</div></section>
+</div><div id="manage-page" hidden>
+ <div class="hero"><div><h1>报价管理</h1><p>更新各公司的报价表，也可以录入表外询价。报价保存在当前浏览器。</p></div><a href="#compare" class="secondary action">返回比价</a></div>
+ <section class="panel upload" id="uploads">
+  <div class="section-head"><div><h2>报价表与第三方</h2><p>现有四家沿用原表结构。新第三方可上传统一模板，或直接录入单独询价。</p></div><a class="secondary action" href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,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" download="ltl-rate-template.xlsx">下载第三方模板</a></div>
+  <form class="manage-form" id="vendor-form"><label>新第三方名称<input name="vendor" maxlength="50" placeholder="输入公司名称" required></label><button class="primary">添加第三方</button></form>
+  <div id="sources"></div>
+  <p class="foot">沃尔玛仓号按原表匹配。酷派亚马逊长途恰好 6 板且两档不同，或同仓表价冲突时，显示「待确认」。</p><p id="message" role="status"></p>
+ </section>
+ <section class="panel upload" id="manual-section">
+  <div class="section-head"><div><h2>单独询价</h2><p>按公司、平台和仓号保存。适用的 Excel 表价优先，缺少适用表价时沿用手动报价。</p></div></div>
+  <form class="manage-form" id="manual-form">
+   <label>公司<select name="company" required></select></label>
+   <label>平台<select name="platform"><option value="Amazon">亚马逊</option><option value="Walmart">沃尔玛</option></select></label>
+   <label>仓号<input name="warehouse" placeholder="如 ONT8" required maxlength="12"></label>
+   <label>适用板数<input type="number" name="pallets" min="1" max="9999" placeholder="不限"></label>
+   <label>USD / 板<input type="number" name="price" min="0.01" step="0.01" required></label>
+   <label class="note-field">备注<input name="note" maxlength="200" placeholder="询价日期、联系人或适用条件"></label>
+   <button class="primary">保存手动价</button>
+  </form>
+  <p id="manual-message" role="status"></p>
+  <div class="table-wrap"><table><thead><tr><th>公司</th><th>仓库</th><th>板数</th><th>手动价</th><th>状态</th><th>备注</th><th>操作</th></tr></thead><tbody id="manual-list"></tbody></table></div>
+ </section>
+</div></main>
+<script>
+const seed = {"DONGFENG":{"file":"DONGFENG 2026报价最新版 10-26-2026(2).xlsx","rates":{"Amazon/LAX9":{"bands":[[1,null,25]],"source":"FBA LTL · 第 10 行","note":"25"},"Amazon/LGB8":{"bands":[[1,null,25]],"source":"FBA LTL · 第 11 行","note":"25"},"Amazon/ONT8":{"bands":[[1,null,25]],"source":"FBA LTL · 第 12 行","note":"25"},"Amazon/SBD1":{"bands":[[1,null,30]],"source":"FBA LTL · 第 13 行","note":"30"},"Amazon/POC1":{"bands":[[1,null,30]],"source":"FBA LTL · 第 14 行","note":"30"},"Amazon/POC2":{"bands":[[1,null,30]],"source":"FBA LTL · 第 15 行","note":"30"},"Amazon/POC3":{"bands":[[1,null,30]],"source":"FBA LTL · 第 16 行","note":"30"},"Amazon/LGB9":{"bands":[[1,null,40]],"source":"FBA LTL · 第 17 行","note":"40"},"Amazon/LGB6":{"bands":[[1,null,40]],"source":"FBA LTL · 第 18 行","note":"40"},"Amazon/LGB4":{"bands":[[1,null,45]],"source":"FBA LTL · 第 19 行","note":"45"},"Amazon/SBD2":{"bands":[[1,null,40]],"source":"FBA LTL · 第 20 行","note":"40"},"Amazon/ONT6":{"bands":[[1,null,45]],"source":"FBA LTL · 第 21 行","note":"45"},"Amazon/ONT9":{"bands":[[1,null,45]],"source":"FBA LTL · 第 22 行","note":"45"},"Amazon/KRB1":{"bands":[[1,null,45]],"source":"FBA LTL · 第 23 行","note":"45"},"Amazon/KRB4":{"bands":[[1,null,45]],"source":"FBA LTL · 第 24 行","note":"45"},"Amazon/XLX7":{"bands":[[1,null,50]],"source":"FBA LTL · 第 25 行","note":"50"},"Amazon/IUSJ":{"bands":[[1,null,50]],"source":"FBA LTL · 第 26 行","note":"50"},"Amazon/IUSP":{"bands":[[1,null,50]],"source":"FBA LTL · 第 27 行","note":"50"},"Amazon/IUSQ":{"bands":[[1,null,45]],"source":"FBA LTL · 第 28 行","note":"45"},"Amazon/IUTI":{"bands":[[1,null,65]],"source":"FBA LTL · 第 29 行","note":"65"},"Amazon/IUSW":{"bands":[[1,null,60]],"source":"FBA LTL · 第 30 行","note":"60"},"Amazon/SNA4":{"bands":[[1,null,50]],"source":"FBA LTL · 第 31 行","note":"50"},"Amazon/MIT2":{"bands":[[1,null,80]],"source":"FBA LTL · 第 32 行","note":"80"},"Amazon/FAT2":{"bands":[[1,null,80]],"source":"FBA LTL · 第 33 行","note":"80"},"Amazon/SMF3":{"bands":[[1,null,80]],"source":"FBA LTL · 第 34 行","note":"80"},"Amazon/SCK1":{"bands":[[1,null,80]],"source":"FBA LTL · 第 35 行","note":"80"},"Amazon/SCK3":{"bands":[[1,null,80]],"source":"FBA LTL · 第 36 行","note":"80"},"Amazon/SCK4":{"bands":[[1,null,80]],"source":"FBA LTL · 第 37 行","note":"80"},"Amazon/OAK3":{"bands":[[1,null,80]],"source":"FBA LTL · 第 38 行","note":"80"},"Amazon/SJC7":{"bands":[[1,null,80]],"source":"FBA LTL · 第 39 行","note":"80"},"Amazon/SMF6":{"bands":[[1,null,85]],"source":"FBA LTL · 第 40 行","note":"85"},"Amazon/MCE1":{"bands":[[1,null,80]],"source":"FBA LTL · 第 41 行","note":"80"},"Amazon/LAS1":{"bands":[[1,null,70]],"source":"FBA LTL · 第 42 行","note":"70"},"Amazon/VGT2":{"bands":[[1,null,70]],"source":"FBA LTL · 第 43 行","note":"70"},"Amazon/LAS6":{"bands":[[1,null,70]],"source":"FBA LTL · 第 44 行","note":"70"},"Amazon/RNO4":{"bands":[[1,null,150]],"source":"FBA LTL · 第 45 行","note":"150"},"Amazon/GYR2":{"bands":[[1,null,70]],"source":"FBA LTL · 第 46 行","note":"70"},"Amazon/GYR3":{"bands":[[1,null,70]],"source":"FBA LTL · 第 47 行","note":"70"},"Amazon/GEU2":{"bands":[[1,null,70]],"source":"FBA LTL · 第 48 行","note":"70"},"Amazon/GEU3":{"bands":[[1,null,70]],"source":"FBA LTL · 第 49 行","note":"70"},"Amazon/GEU5":{"bands":[[1,null,70]],"source":"FBA LTL · 第 50 行","note":"70"},"Amazon/PHX3":{"bands":[[1,null,80]],"source":"FBA LTL · 第 51 行","note":"80"},"Amazon/PHX5":{"bands":[[1,null,80]],"source":"FBA LTL · 第 52 行","note":"80"},"Amazon/PHX7":{"bands":[[1,null,80]],"source":"FBA LTL · 第 53 行","note":"80"},"Amazon/FTW1":{"bands":[[1,null,190]],"source":"FBA LTL · 第 54 行","note":"190"},"Amazon/FTW3":{"bands":[[1,null,210]],"source":"FBA LTL · 第 55 行","note":"210"},"Amazon/FTW5":{"bands":[[1,null,210]],"source":"FBA LTL · 第 56 行","note":"210"},"Amazon/FTW9":{"bands":[[1,null,210]],"source":"FBA LTL · 第 57 行","note":"210"},"Amazon/DFW6":{"bands":[[1,null,210]],"source":"FBA LTL · 第 58 行","note":"210"},"Amazon/DFW7":{"bands":[[1,null,210]],"source":"FBA LTL · 第 59 行","note":"210"},"Amazon/SLC2":{"bands":[[1,null,150]],"source":"FBA LTL · 第 60 行","note":"150"},"Amazon/SLC3":{"bands":[[1,null,160]],"source":"FBA LTL · 第 61 行","note":"160"},"Amazon/DEN2":{"bands":[[1,null,210]],"source":"FBA LTL · 第 62 行","note":"210"},"Amazon/DEN7":{"bands":[[1,null,210]],"source":"FBA LTL · 第 63 行","note":"210"},"Amazon/DEN8":{"bands":[[1,null,210]],"source":"FBA LTL · 第 64 行","note":"210"},"Amazon/SAT1":{"bands":[[1,null,210]],"source":"FBA LTL · 第 65 行","note":"210"},"Amazon/SAT4":{"bands":[[1,null,210]],"source":"FBA LTL · 第 66 行","note":"210"},"Amazon/SAT6":{"bands":[[1,null,210]],"source":"FBA LTL · 第 67 行","note":"210"},"Amazon/AMA1":{"bands":[[1,null,200]],"source":"FBA LTL · 第 68 行","note":"200"},"Amazon/IAH3":{"bands":[[1,null,210]],"source":"FBA LTL · 第 69 行","note":"210"},"Amazon/ABQ2":{"bands":[[1,null,150]],"source":"FBA LTL · 第 70 行","note":"150"},"Amazon/PSC2":{"bands":[[1,null,210]],"source":"FBA LTL · 第 71 行","note":"210"},"Amazon/HOU3":{"bands":[[1,null,210]],"source":"FBA LTL · 第 72 行","note":"210"},"Amazon/HOU7":{"bands":[[1,null,210]],"source":"FBA LTL · 第 73 行","note":"210"},"Amazon/HOU8":{"bands":[[1,null,210]],"source":"FBA LTL · 第 74 行","note":"210"},"Amazon/BFI3":{"bands":[[1,null,260]],"source":"FBA LTL · 第 75 行","note":"260"},"Amazon/BFI7":{"bands":[[1,null,260]],"source":"FBA LTL · 第 76 行","note":"260"},"Amazon/GEG2":{"bands":[[1,null,260]],"source":"FBA LTL · 第 77 行","note":"260"},"Amazon/MEM6":{"bands":[[1,null,250]],"source":"FBA LTL · 第 78 行","note":"250"},"Amazon/MEM1":{"bands":[[1,null,220]],"source":"FBA LTL · 第 79 行","note":"220"},"Amazon/MKC4":{"bands":[[1,null,250]],"source":"FBA LTL · 第 80 行","note":"250"},"Amazon/FOE1":{"bands":[[1,null,250]],"source":"FBA LTL · 第 81 行","note":"250"},"Amazon/ICT2":{"bands":[[1,null,250]],"source":"FBA LTL · 第 82 行","note":"250"},"Amazon/PDX7":{"bands":[[1,null,260]],"source":"FBA LTL · 第 83 行","note":"260"},"Amazon/OLM1":{"bands":[[1,null,260]],"source":"FBA LTL · 第 84 行","note":"260"},"Amazon/PDX6":{"bands":[[1,null,260]],"source":"FBA LTL · 第 85 行","note":"260"},"Amazon/CHA2":{"bands":[[1,null,280]],"source":"FBA LTL · 第 86 行","note":"280"},"Amazon/HSV1":{"bands":[[1,null,280]],"source":"FBA LTL · 第 87 行","note":"280"},"Amazon/HSV2":{"bands":[[1,null,280]],"source":"FBA LTL · 第 88 行","note":"280"},"Amazon/BNA2":{"bands":[[1,null,280]],"source":"FBA LTL · 第 89 行","note":"280"},"Amazon/ORD2":{"bands":[[1,null,230]],"source":"FBA LTL · 第 90 行","note":"230"},"Amazon/MDW2":{"bands":[[1,null,230]],"source":"FBA LTL · 第 91 行","note":"230"},"Amazon/MDW6":{"bands":[[1,null,230]],"source":"FBA LTL · 第 92 行","note":"230"},"Amazon/MDW9":{"bands":[[1,null,230]],"source":"FBA LTL · 第 93 行","note":"230"},"Amazon/STL3":{"bands":[[1,null,230]],"source":"FBA LTL · 第 94 行","note":"230"},"Amazon/STL4":{"bands":[[1,null,230]],"source":"FBA LTL · 第 95 行","note":"230"},"Amazon/STL6":{"bands":[[1,null,230]],"source":"FBA LTL · 第 96 行","note":"230"},"Amazon/IGQ2":{"bands":[[1,null,230]],"source":"FBA LTL · 第 97 行","note":"230"},"Amazon/IND9":{"bands":[[1,null,230]],"source":"FBA LTL · 第 98 行","note":"230"},"Amazon/IND2":{"bands":[[1,null,250]],"source":"FBA LTL · 第 99 行","note":"250"},"Amazon/IND4":{"bands":[[1,null,250]],"source":"FBA LTL · 第 100 行","note":"250"},"Amazon/IND5":{"bands":[[1,null,250]],"source":"FBA LTL · 第 101 行","note":"250"},"Amazon/CMH2":{"bands":[[1,null,250]],"source":"FBA LTL · 第 102 行","note":"250"},"Amazon/CMH3":{"bands":[[1,null,250]],"source":"FBA LTL · 第 103 行","note":"250"},"Amazon/DET1":{"bands":[[1,null,280]],"source":"FBA LTL · 第 104 行","note":"280"},"Amazon/DET2":{"bands":[[1,null,280]],"source":"FBA LTL · 第 105 行","note":"280"},"Amazon/CLT2":{"bands":[[1,null,280]],"source":"FBA LTL · 第 106 行","note":"280"},"Amazon/CLT3":{"bands":[[1,null,280]],"source":"FBA LTL · 第 107 行","note":"280"},"Amazon/FWA4":{"bands":[[1,null,250]],"source":"FBA LTL · 第 108 行","note":"250"},"Amazon/LIT2":{"bands":[[1,null,210]],"source":"FBA LTL · 第 109 行","note":"210"},"Amazon/JVL1":{"bands":[[1,null,250]],"source":"FBA LTL · 第 110 行","note":"250"},"Amazon/OKC2":{"bands":[[1,null,220]],"source":"FBA LTL · 第 111 行","note":"220"},"Amazon/MQJ1":{"bands":[[1,null,250]],"source":"FBA LTL · 第 112 行","note":"250"},"Amazon/LFT1":{"bands":[[1,null,230]],"source":"FBA LTL · 第 113 行","note":"230"},"Amazon/GSO1":{"bands":[[1,null,310]],"source":"FBA LTL · 第 114 行","note":"310"},"Amazon/SAV3":{"bands":[[1,null,290]],"source":"FBA LTL · 第 115 行","note":"290"},"Amazon/MGE3":{"bands":[[1,null,290]],"source":"FBA LTL · 第 116 行","note":"290"},"Amazon/GSP1":{"bands":[[1,null,260]],"source":"FBA LTL · 第 117 行","note":"260"},"Amazon/CHO1":{"bands":[[1,null,330]],"source":"FBA LTL · 第 118 行","note":"330"},"Amazon/ATL8":{"bands":[[1,null,290]],"source":"FBA LTL · 第 119 行","note":"290"},"Amazon/PHL5":{"bands":[[1,null,320]],"source":"FBA LTL · 第 120 行","note":"320"},"Amazon/PHL6":{"bands":[[1,null,320]],"source":"FBA LTL · 第 121 行","note":"320"},"Amazon/ABE4":{"bands":[[1,null,330]],"source":"FBA LTL · 第 122 行","note":"330"},"Amazon/ABE8":{"bands":[[1,null,330]],"source":"FBA LTL · 第 123 行","note":"330"},"Amazon/AVP1":{"bands":[[1,null,330]],"source":"FBA LTL · 第 124 行","note":"330"},"Amazon/AVP3":{"bands":[[1,null,330]],"source":"FBA LTL · 第 125 行","note":"330"},"Amazon/ACY2":{"bands":[[1,null,320]],"source":"FBA LTL · 第 126 行","note":"320"},"Amazon/RIC1":{"bands":[[1,null,330]],"source":"FBA LTL · 第 127 行","note":"330"},"Amazon/BWI4":{"bands":[[1,null,330]],"source":"FBA LTL · 第 128 行","note":"330"},"Amazon/KRB5":{"bands":[[1,null,320]],"source":"FBA LTL · 第 129 行","note":"320"},"Amazon/DCA6":{"bands":[[1,null,320]],"source":"FBA LTL · 第 130 行","note":"320"},"Amazon/XLX6":{"bands":[[1,null,280]],"source":"FBA LTL · 第 131 行","note":"280"},"Amazon/XLX1":{"bands":[[1,null,320]],"source":"FBA LTL · 第 132 行","note":"320"},"Amazon/TPA2":{"bands":[[1,null,320]],"source":"FBA LTL · 第 133 行","note":"320"},"Amazon/TPA3":{"bands":[[1,null,320]],"source":"FBA LTL · 第 134 行","note":"320"},"Amazon/TPA6":{"bands":[[1,null,320]],"source":"FBA LTL · 第 135 行","note":"320"},"Amazon/MCO2":{"bands":[[1,null,320]],"source":"FBA LTL · 第 136 行","note":"320"},"Amazon/ILG1":{"bands":[[1,null,320]],"source":"FBA LTL · 第 137 行","note":"320"},"Amazon/MDT1":{"bands":[[1,null,320]],"source":"FBA LTL · 第 138 行","note":"320"},"Amazon/MDT2":{"bands":[[1,null,320]],"source":"FBA LTL · 第 139 行","note":"320"},"Amazon/PIT2":{"bands":[[1,null,320]],"source":"FBA LTL · 第 140 行","note":"320"},"Amazon/TEB3":{"bands":[[1,null,330]],"source":"FBA LTL · 第 141 行","note":"330"},"Amazon/TEB6":{"bands":[[1,null,330]],"source":"FBA LTL · 第 142 行","note":"330"},"Amazon/TEB9":{"bands":[[1,null,330]],"source":"FBA LTL · 第 143 行","note":"330"},"Amazon/ALB1":{"bands":[[1,null,370]],"source":"FBA LTL · 第 144 行","note":"370"},"Amazon/SWF1":{"bands":[[1,null,370]],"source":"FBA LTL · 第 145 行","note":"370"},"Amazon/SWF2":{"bands":[[1,null,370]],"source":"FBA LTL · 第 146 行","note":"370"},"Amazon/ABE2":{"bands":[[1,null,330]],"source":"FBA LTL · 第 147 行","note":"330"},"Amazon/ABE3":{"bands":[[1,null,330]],"source":"FBA LTL · 第 148 行","note":"330"},"Amazon/AFW1":{"bands":[[1,null,190]],"source":"FBA LTL · 第 149 行","note":"190"},"Amazon/AKR1":{"bands":[[1,null,290]],"source":"FBA LTL · 第 150 行","note":"290"},"Amazon/AZA4":{"bands":[[1,null,90]],"source":"FBA LTL · 第 151 行","note":"90"},"Amazon/BDL2":{"bands":[[1,null,450]],"source":"FBA LTL · 第 152 行","note":"450"},"Amazon/BFI9":{"bands":[[1,null,260]],"source":"FBA LTL · 第 153 行","note":"260"},"Amazon/BFL2":{"bands":[[1,null,110]],"source":"FBA LTL · 第 154 行","note":"110"},"Amazon/BNA6":{"bands":[[1,null,270]],"source":"FBA LTL · 第 155 行","note":"270"},"Amazon/CHA1":{"bands":[[1,null,230]],"source":"FBA LTL · 第 156 行","note":"230"},"Amazon/CLT6":{"bands":[[1,null,280]],"source":"FBA LTL · 第 157 行","note":"280"},"Amazon/CMH6":{"bands":[[1,null,250]],"source":"FBA LTL · 第 158 行","note":"250"},"Amazon/DDA8":{"bands":[[1,null,220]],"source":"FBA LTL · 第 159 行","note":"220"},"Amazon/DFW5":{"bands":[[1,null,240]],"source":"FBA LTL · 第 160 行","note":"240"},"Amazon/DTW3":{"bands":[[1,null,290]],"source":"FBA LTL · 第 161 行","note":"290"},"Amazon/GER2":{"bands":[[1,null,85]],"source":"FBA LTL · 第 162 行","note":"85"},"Amazon/HGR2":{"bands":[[1,null,310]],"source":"FBA LTL · 第 163 行","note":"310"},"Amazon/HGR6":{"bands":[[1,null,310]],"source":"FBA LTL · 第 164 行","note":"310"},"Amazon/HIA1":{"bands":[[1,null,310]],"source":"FBA LTL · 第 165 行","note":"310"},"Amazon/HIL2":{"bands":[[1,null,250]],"source":"FBA LTL · 第 166 行","note":"250"},"Amazon/HLI2":{"bands":[[1,null,90]],"source":"FBA LTL · 第 167 行","note":"90"},"Amazon/IND6":{"bands":[[1,null,210]],"source":"FBA LTL · 第 168 行","note":"210"},"Amazon/IUSF":{"bands":[[1,null,210]],"source":"FBA LTL · 第 169 行","note":"210"},"Amazon/IUSL":{"bands":[[1,null,330]],"source":"FBA LTL · 第 170 行","note":"330"},"Amazon/JAX2":{"bands":[[1,null,320]],"source":"FBA LTL · 第 171 行","note":"320"},"Amazon/JAX3":{"bands":[[1,null,320]],"source":"FBA LTL · 第 172 行","note":"320"},"Amazon/JOT1":{"bands":[[1,null,70]],"source":"FBA LTL · 第 173 行","note":"70"},"Amazon/KRB2":{"bands":[[1,null,330]],"source":"FBA LTL · 第 174 行","note":"330"},"Amazon/LAN2":{"bands":[[1,null,290]],"source":"FBA LTL · 第 175 行","note":"290"},"Amazon/LBE1":{"bands":[[1,null,310]],"source":"FBA LTL · 第 176 行","note":"310"},"Amazon/MCI3":{"bands":[[1,null,270]],"source":"FBA LTL · 第 177 行","note":"270"},"Amazon/MDT4":{"bands":[[1,null,330]],"source":"FBA LTL · 第 178 行","note":"330"},"Amazon/MDW4":{"bands":[[1,null,240]],"source":"FBA LTL · 第 179 行","note":"240"},"Amazon/MDW8":{"bands":[[1,null,250]],"source":"FBA LTL · 第 180 行","note":"250"},"Amazon/MEM8":{"bands":[[1,null,250]],"source":"FBA LTL · 第 181 行","note":"250"},"Amazon/MGE1":{"bands":[[1,null,290]],"source":"FBA LTL · 第 182 行","note":"290"},"Amazon/MIA2":{"bands":[[1,null,330]],"source":"FBA LTL · 第 183 行","note":"330"},"Amazon/MQJ2":{"bands":[[1,null,250]],"source":"FBA LTL · 第 184 行","note":"250"},"Amazon/ORF2":{"bands":[[1,null,330]],"source":"FBA LTL · 第 185 行","note":"330"},"Amazon/PBI2":{"bands":[[1,null,310]],"source":"FBA LTL · 第 186 行","note":"310"},"Amazon/PBI3":{"bands":[[1,null,310]],"source":"FBA LTL · 第 187 行","note":"310"},"Amazon/PHL4":{"bands":[[1,null,280]],"source":"FBA LTL · 第 188 行","note":"280"},"Amazon/PHX6":{"bands":[[1,null,110]],"source":"FBA LTL · 第 189 行","note":"110"},"Amazon/PPO4":{"bands":[[1,null,240]],"source":"FBA LTL · 第 190 行","note":"240"},"Amazon/QXY5":{"bands":[[1,null,95]],"source":"FBA LTL · 第 191 行","note":"95"},"Amazon/RDU2":{"bands":[[1,null,310]],"source":"FBA LTL · 第 192 行","note":"310"},"Amazon/RDU4":{"bands":[[1,null,310]],"source":"FBA LTL · 第 193 行","note":"310"},"Amazon/RFD2":{"bands":[[1,null,230]],"source":"FBA LTL · 第 194 行","note":"230"},"Amazon/RFD4":{"bands":[[1,null,230]],"source":"FBA LTL · 第 195 行","note":"230"},"Amazon/RMN3":{"bands":[[1,null,310]],"source":"FBA LTL · 第 196 行","note":"310"},"Amazon/RYY2":{"bands":[[1,null,290]],"source":"FBA LTL · 第 197 行","note":"290"},"Amazon/SAT5":{"bands":[[1,null,190]],"source":"FBA LTL · 第 198 行","note":"190"},"Amazon/SBD3":{"bands":[[1,null,50]],"source":"FBA LTL · 第 199 行","note":"50"},"Amazon/SCK8":{"bands":[[1,null,85]],"source":"FBA LTL · 第 200 行","note":"85"},"Amazon/SDF8":{"bands":[[1,null,230]],"source":"FBA LTL · 第 201 行","note":"230"},"Amazon/TEB4":{"bands":[[1,null,320]],"source":"FBA LTL · 第 202 行","note":"320"},"Amazon/TMB8":{"bands":[[1,null,360]],"source":"FBA LTL · 第 203 行","note":"360"},"Amazon/TNN2":{"bands":[[1,null,270]],"source":"FBA LTL · 第 204 行","note":"270"},"Amazon/TTN2":{"bands":[[1,null,280]],"source":"FBA LTL · 第 205 行","note":"280"},"Amazon/WBW2":{"bands":[[1,null,310]],"source":"FBA LTL · 第 206 行","note":"310"},"Amazon/XIX7":{"bands":[[1,null,55]],"source":"FBA LTL · 第 207 行","note":"55"},"Amazon/XLG1":{"bands":[[1,null,55]],"source":"FBA LTL · 第 208 行","note":"55"},"Amazon/IUSR":{"bands":[[1,null,260]],"source":"FBA LTL · 第 209 行","note":"260"},"Amazon/IUTE":{"bands":[[1,null,85]],"source":"FBA LTL · 第 210 行","note":"85"},"Amazon/PSP3":{"bands":[[1,null,75]],"source":"FBA LTL · 第 211 行","note":"75"},"Amazon/QXY8":{"bands":[[1,null,80]],"source":"FBA LTL · 第 212 行","note":"80"},"Amazon/FTW2":{"bands":[[1,null,200]],"source":"FBA LTL · 第 213 行","note":"200"},"Amazon/TCY1":{"bands":[[1,null,95]],"source":"FBA LTL · 第 214 行","note":"95"},"Amazon/TCY2":{"bands":[[1,null,95]],"source":"FBA LTL · 第 215 行","note":"95"},"Amazon/IUST":{"bands":[[1,null,310]],"source":"FBA LTL · 第 216 行","note":"310"},"Amazon/ONT2":{"bands":[[1,null,60]],"source":"FBA LTL · 第 217 行","note":"60"},"Amazon/CMH7":{"bands":[[1,null,260]],"source":"FBA LTL · 第 218 行","note":"260"},"Amazon/SMF7":{"bands":[[1,null,85]],"source":"FBA LTL · 第 219 行","note":"85"},"Amazon/BOS7":{"bands":[[1,null,450]],"source":"FBA LTL · 第 220 行","note":"450"},"Walmart/LAX1":{"bands":[[3,5,45],[6,null,40]],"source":"Walmart LTL · 第 8 行","note":"45"},"Walmart/LAX2":{"bands":[[3,5,45],[6,null,40]],"source":"Walmart LTL · 第 8 行","note":"45"},"Walmart/PHX1":{"bands":[[3,5,120],[6,null,110]],"source":"Walmart LTL · 第 9 行","note":"120"},"Walmart/SMF1":{"bands":[[3,5,120],[6,null,110]],"source":"Walmart LTL · 第 10 行","note":"120"},"Walmart/DFW2":{"bands":[[3,5,245],[6,null,230]],"source":"Walmart LTL · 第 11 行","note":"245"},"Walmart/DFW5":{"bands":[[3,5,245],[6,null,230]],"source":"Walmart LTL · 第 11 行","note":"245"},"Walmart/DFW6":{"bands":[[3,5,245],[6,null,230]],"source":"Walmart LTL · 第 11 行","note":"245"},"Walmart/MEM1S":{"bands":[[3,5,270],[6,null,240]],"source":"Walmart LTL · 第 12 行","note":"270"},"Walmart/MCI1N":{"bands":[[3,5,270],[6,null,260]],"source":"Walmart LTL · 第 13 行","note":"270"},"Walmart/IND1":{"bands":[[3,5,280],[6,null,270]],"source":"Walmart LTL · 第 16 行","note":"280"},"Walmart/IND2":{"bands":[[3,5,280],[6,null,270]],"source":"Walmart LTL · 第 16 行","note":"280"},"Walmart/IND3":{"bands":[[3,5,280],[6,null,270]],"source":"Walmart LTL · 第 16 行","note":"280"},"Walmart/ALT1":{"bands":[[3,5,300],[6,null,290]],"source":"Walmart LTL · 第 17 行","note":"300"},"Walmart/ALT3":{"bands":[[3,5,300],[6,null,290]],"source":"Walmart LTL · 第 17 行","note":"300"},"Walmart/MCO1":{"bands":[[3,5,390],[6,null,380]],"source":"Walmart LTL · 第 18 行","note":"390"},"Walmart/ORD1S":{"bands":[[3,5,290],[6,null,280]],"source":"Walmart LTL · 第 20 行","note":"290"},"Walmart/SLC1N":{"bands":[[3,5,190],[6,null,180]],"source":"Walmart LTL · 第 21 行","note":"190"},"Walmart/PHL1S":{"bands":[[3,5,380],[6,null,370]],"source":"Walmart LTL · 第 22 行","note":"380"},"Walmart/PHL2":{"bands":[[3,5,380],[6,null,370]],"source":"Walmart LTL · 第 22 行","note":"380"},"Walmart/PHL6S":{"bands":[[3,5,380],[6,null,370]],"source":"Walmart LTL · 第 22 行","note":"380"},"Walmart/PHL5S":{"bands":[[3,5,380],[6,null,370]],"source":"Walmart LTL · 第 22 行","note":"380"},"Walmart/PHL4N":{"bands":[[3,5,380],[6,null,370]],"source":"Walmart LTL · 第 22 行","note":"380"}},"warnings":[]},"酷派":{"file":"酷派卡派报价11-02-2026(1).xlsx","rates":{"Amazon/ONT8":{"bands":[[1,null,45]],"source":"FBA报价 · 第 4 行","note":"45"},"Amazon/LGB8":{"bands":[[1,null,45]],"source":"FBA报价 · 第 4 行","note":"45"},"Amazon/LAX9":{"bands":[[1,null,45]],"source":"FBA报价 · 第 4 行","note":"45"},"Amazon/SBD1":{"bands":[[1,null,45]],"source":"FBA报价 · 第 4 行","note":"45"},"Amazon/KRB1":{"bands":[[1,null,50]],"source":"FBA报价 · 第 5 行","note":"50"},"Amazon/KRB4":{"bands":[[1,null,50]],"source":"FBA报价 · 第 5 行","note":"50"},"Amazon/SNA4":{"bands":[[1,null,50]],"source":"FBA报价 · 第 5 行","note":"50"},"Amazon/LGB4":{"bands":[[1,null,50]],"source":"FBA报价 · 第 5 行","note":"50"},"Amazon/LGB6":{"bands":[[1,null,50]],"source":"FBA报价 · 第 5 行","note":"50"},"Amazon/LGB9":{"bands":[[1,null,50]],"source":"FBA报价 · 第 5 行","note":"50"},"Amazon/SBD2":{"bands":[[1,null,50]],"source":"FBA报价 · 第 5 行","note":"50"},"Amazon/JOT1":{"bands":[[1,null,50]],"source":"FBA报价 · 第 5 行","note":"50"},"Amazon/POC1":{"bands":[[1,null,50]],"source":"FBA报价 · 第 5 行","note":"50"},"Amazon/POC2":{"bands":[[1,null,50]],"source":"FBA报价 · 第 5 行","note":"50"},"Amazon/POC3":{"bands":[[1,null,50]],"source":"FBA报价 · 第 5 行","note":"50"},"Amazon/ONT9":{"bands":[[1,null,50]],"source":"FBA报价 · 第 5 行","note":"50"},"Amazon/XLG1":{"bands":[[1,null,50]],"source":"FBA报价 · 第 5 行","note":"50"},"Amazon/UCA3":{"bands":[[1,null,50]],"source":"FBA报价 · 第 5 行","note":"50"},"Amazon/XLX7":{"bands":[[1,null,65]],"source":"FBA报价 · 第 6 行","note":"65"},"Amazon/IUSJ":{"bands":[[1,null,65]],"source":"FBA报价 · 第 6 行","note":"65"},"Amazon/IUSP":{"bands":[[1,null,65]],"source":"FBA报价 · 第 6 行","note":"65"},"Amazon/IUSQ":{"bands":[[1,null,65]],"source":"FBA报价 · 第 6 行","note":"65"},"Amazon/DCX7":{"bands":[[1,null,65]],"source":"FBA报价 · 第 6 行","note":"65"},"Amazon/IUSW":{"bands":[[1,null,65]],"source":"FBA报价 · 第 6 行","note":"65"},"Amazon/IUTI":{"bands":[[1,null,65]],"source":"FBA报价 · 第 6 行","note":"65"},"Amazon/PSP3":{"bands":[[1,null,65]],"source":"FBA报价 · 第 6 行","note":"65"},"Amazon/SMF3":{"bands":[[1,null,85]],"source":"FBA报价 · 第 7 行","note":"85"},"Amazon/LAS1":{"bands":[[1,null,85]],"source":"FBA报价 · 第 7 行","note":"85"},"Amazon/GYR3":{"bands":[[1,null,85]],"source":"FBA报价 · 第 7 行","note":"85"},"Amazon/GYR2":{"bands":[[1,null,85]],"source":"FBA报价 · 第 7 行","note":"85"},"Amazon/SCK4":{"bands":[[1,null,85]],"source":"FBA报价 · 第 7 行","note":"85"},"Amazon/VGT2":{"bands":[[1,null,85]],"source":"FBA报价 · 第 7 行","note":"85"},"Amazon/FTW1":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 10 行","note":"260/250"},"Amazon/FTW5":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 11 行","note":"260/250"},"Amazon/DFW6":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 11 行","note":"260/250"},"Amazon/MEM1":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 12 行","note":"280/270"},"Amazon/IND9":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 12 行","note":"280/270"},"Amazon/MDW2":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 12 行","note":"280/270"},"Amazon/MQJ1":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 12 行","note":"280/270"},"Amazon/FWA4":{"bands":[[1,6,290],[6,null,280]],"source":"FBA报价 · 第 13 行","note":"290/280"},"Amazon/STL3":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 14 行","note":"280/270"},"Amazon/STL4":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 14 行","note":"280/270"},"Amazon/CLT2":{"bands":[[1,6,360],[6,null,350]],"source":"FBA报价 · 第 15 行","note":"360/350"},"Amazon/TPA2":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 16 行","note":"390/380"},"Amazon/TPA3":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 16 行","note":"390/380"},"Amazon/TPA6":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 16 行","note":"390/380"},"Amazon/MCO2":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 16 行","note":"390/380"},"Amazon/ABE8":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 17 行","note":"390/380"},"Amazon/SLC2":{"bands":[[1,6,210],[6,null,200]],"source":"FBA报价 · 第 18 行","note":"210/200"},"Amazon/SLC3":{"bands":[[1,6,210],[6,null,200]],"source":"FBA报价 · 第 18 行","note":"210/200"},"Amazon/ABQ2":{"bands":[[1,6,190],[6,null,180]],"source":"FBA报价 · 第 19 行","note":"190/180"},"Amazon/SAT4":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 20 行","note":"260/250"},"Amazon/SAT1":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 20 行","note":"260/250"},"Amazon/ITX3":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 21 行","note":"260/250"},"Amazon/SAT6":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 22 行","note":"260/250"},"Amazon/FTW2":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 22 行","note":"260/250"},"Amazon/FTW3":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 22 行","note":"260/250"},"Amazon/FTW7":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 22 行","note":"260/250"},"Amazon/FTW9":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 22 行","note":"260/250"},"Amazon/DDA8":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 22 行","note":"260/250"},"Amazon/HOU3":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 23 行","note":"260/250"},"Amazon/HOU7":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 23 行","note":"260/250"},"Amazon/HOU8":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 23 行","note":"260/250"},"Amazon/IAH3":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 23 行","note":"260/250"},"Amazon/IUTH":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 23 行","note":"260/250"},"Amazon/DFW5":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 24 行","note":"260/250"},"Amazon/DFW7":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 24 行","note":"260/250"},"Amazon/MEM2":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 25 行","note":"280/270"},"Amazon/MEM8":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 25 行","note":"280/270"},"Amazon/IMS1":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 25 行","note":"280/270"},"Amazon/PDX6":{"bands":[[1,6,250],[6,null,240]],"source":"FBA报价 · 第 26 行","note":"250/240"},"Amazon/PDX7":{"bands":[[1,6,250],[6,null,240]],"source":"FBA报价 · 第 26 行","note":"250/240"},"Amazon/DEN8":{"bands":[[1,6,250],[6,null,240]],"source":"FBA报价 · 第 27 行","note":"250/240"},"Amazon/BJC1":{"bands":[[1,6,250],[6,null,240]],"source":"FBA报价 · 第 27 行","note":"250/240"},"Amazon/BFI3":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 28 行","note":"260/250"},"Amazon/BFI7":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 28 行","note":"260/250"},"Amazon/BFI9":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 28 行","note":"260/250"},"Amazon/GEG2":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 28 行","note":"260/250"},"Amazon/TIW1":{"bands":[[1,6,250],[6,null,240]],"source":"FBA报价 · 第 29 行","note":"250/240"},"Amazon/IWA6":{"bands":[[1,6,220],[6,null,210]],"source":"FBA报价 · 第 30 行","note":"220/210"},"Amazon/STL6":{"bands":[[1,6,290],[6,null,280]],"source":"FBA报价 · 第 31 行","note":"290/280"},"Amazon/RFD2":{"bands":[[1,6,290],[6,null,280]],"source":"FBA报价 · 第 31 行","note":"290/280"},"Amazon/RFD4":{"bands":[[1,6,290],[6,null,280]],"source":"FBA报价 · 第 31 行","note":"290/280"},"Amazon/HIL2":{"bands":[[1,6,290],[6,null,280]],"source":"FBA报价 · 第 31 行","note":"290/280"},"Amazon/MDW4":{"bands":[[1,6,290],[6,null,280]],"source":"FBA报价 · 第 32 行","note":"290/280"},"Amazon/MDW6":{"bands":[[1,6,290],[6,null,280]],"source":"FBA报价 · 第 32 行","note":"290/280"},"Amazon/MDW8":{"bands":[[1,6,290],[6,null,280]],"source":"FBA报价 · 第 32 行","note":"290/280"},"Amazon/MDW9":{"bands":[[1,6,290],[6,null,280]],"source":"FBA报价 · 第 32 行","note":"290/280"},"Amazon/ORD2":{"bands":[[1,6,290],[6,null,280]],"source":"FBA报价 · 第 32 行","note":"290/280"},"Amazon/IGQ2":{"bands":[[1,6,290],[6,null,280]],"source":"FBA报价 · 第 32 行","note":"290/280"},"Amazon/OKC2":{"bands":[[1,6,260],[6,null,250]],"source":"FBA报价 · 第 33 行","note":"260/250"},"Amazon/MCI3":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 34 行","note":"280/270"},"Amazon/MCI4":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 34 行","note":"280/270"},"Amazon/IMO1":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 34 行","note":"280/270"},"Amazon/CMH2":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 35 行","note":"310/300"},"Amazon/CMH3":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 35 行","note":"310/300"},"Amazon/TOL3":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 36 行","note":"310/300"},"Amazon/AKR1":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 36 行","note":"310/300"},"Amazon/CMH7":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 36 行","note":"310/300"},"Amazon/CHA2":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 37 行","note":"310/300"},"Amazon/BNA2":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 37 行","note":"310/300"},"Amazon/BNA3":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 37 行","note":"310/300"},"Amazon/BNA6":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 37 行","note":"310/300"},"Amazon/TYS5":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 37 行","note":"310/300"},"Amazon/MQY2":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 37 行","note":"310/300"},"Amazon/MKC4":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 38 行","note":"280/270"},"Amazon/ICT2":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 38 行","note":"280/270"},"Amazon/FOE1":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 38 行","note":"280/270"},"Amazon/HSV1":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 39 行","note":"310/300"},"Amazon/HSV2":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 39 行","note":"310/300"},"Amazon/IND2":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 40 行","note":"280/270"},"Amazon/IND4":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 40 行","note":"280/270"},"Amazon/IND5":{"bands":[[1,6,280],[6,null,270]],"source":"FBA报价 · 第 40 行","note":"280/270"},"Amazon/SDF6":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 41 行","note":"310/300"},"Amazon/SDF8":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 41 行","note":"310/300"},"Amazon/JVL1":{"bands":[[1,6,290],[6,null,280]],"source":"FBA报价 · 第 42 行","note":"290/280"},"Amazon/DET1":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 43 行","note":"310/300"},"Amazon/DET2":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 43 行","note":"310/300"},"Amazon/DTW3":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 44 行","note":"310/300"},"Amazon/IMI1":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 44 行","note":"310/300"},"Amazon/LIT2":{"bands":[[1,6,270],[6,null,260]],"source":"FBA报价 · 第 45 行","note":"270/260"},"Amazon/MGE1":{"bands":[[1,6,320],[6,null,310]],"source":"FBA报价 · 第 46 行","note":"320/310"},"Amazon/MGE3":{"bands":[[1,6,320],[6,null,310]],"source":"FBA报价 · 第 46 行","note":"320/310"},"Amazon/SAV1":{"bands":[[1,6,320],[6,null,310]],"source":"FBA报价 · 第 46 行","note":"320/310"},"Amazon/SAV3":{"bands":[[1,6,320],[6,null,310]],"source":"FBA报价 · 第 46 行","note":"320/310"},"Amazon/ATL8":{"bands":[[1,6,320],[6,null,310]],"source":"FBA报价 · 第 46 行","note":"320/310"},"Amazon/RYY2":{"bands":[[1,6,320],[6,null,310]],"source":"FBA报价 · 第 46 行","note":"320/310"},"Amazon/XAV3":{"bands":[[1,6,320],[6,null,310]],"source":"FBA报价 · 第 46 行","note":"320/310"},"Amazon/GSP1":{"bands":[[1,6,320],[6,null,310]],"source":"FBA报价 · 第 47 行","note":"320/310"},"Amazon/IUSR":{"bands":[[1,6,320],[6,null,310]],"source":"FBA报价 · 第 47 行","note":"320/310"},"Amazon/CLT3":{"bands":[[1,6,360],[6,null,350]],"source":"FBA报价 · 第 48 行","note":"360/350"},"Amazon/GSO1":{"bands":[[1,6,360],[6,null,350]],"source":"FBA报价 · 第 48 行","note":"360/350"},"Amazon/IGA3":{"bands":[[1,6,360],[6,null,350]],"source":"FBA报价 · 第 48 行","note":"360/350"},"Amazon/RDU2":{"bands":[[1,6,360],[6,null,350]],"source":"FBA报价 · 第 49 行","note":"360/350"},"Amazon/RDU4":{"bands":[[1,6,360],[6,null,350]],"source":"FBA报价 · 第 49 行","note":"360/350"},"Amazon/INC1":{"bands":[[1,6,360],[6,null,350]],"source":"FBA报价 · 第 49 行","note":"360/350"},"Amazon/CLT6":{"bands":[[1,6,360],[6,null,350]],"source":"FBA报价 · 第 50 行","note":"360/350"},"Amazon/XLX6":{"bands":[[1,6,360],[6,null,350]],"source":"FBA报价 · 第 50 行","note":"360/350"},"Amazon/LFT1":{"bands":[[1,6,310],[6,null,300]],"source":"FBA报价 · 第 51 行","note":"310/300"},"Amazon/JAX3":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 52 行","note":"390/380"},"Amazon/PBI2":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 53 行","note":"390/380"},"Amazon/PBI3":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 53 行","note":"390/380"},"Amazon/XPB2":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 53 行","note":"390/380"},"Amazon/ABE2":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 54 行","note":"390/380"},"Amazon/ABE3":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 54 行","note":"390/380"},"Amazon/ABE4":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 54 行","note":"390/380"},"Amazon/MDT1":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 55 行","note":"390/380"},"Amazon/MDT4":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 55 行","note":"390/380"},"Amazon/PIT2":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 55 行","note":"390/380"},"Amazon/AVP1":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 55 行","note":"390/380"},"Amazon/AVP3":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 55 行","note":"390/380"},"Amazon/AVP9":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 55 行","note":"390/380"},"Amazon/LBE1":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 55 行","note":"390/380"},"Amazon/IUST":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 55 行","note":"390/380"},"Amazon/HEA2":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 55 行","note":"390/380"},"Amazon/WBW2":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 56 行","note":"390/380"},"Amazon/IPA1":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 56 行","note":"390/380"},"Amazon/HIA1":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 57 行","note":"390/380"},"Amazon/HAJ1":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 58 行","note":"390/380"},"Amazon/TEB3":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 59 行","note":"390/380"},"Amazon/TEB4":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 59 行","note":"390/380"},"Amazon/TEB6":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 59 行","note":"390/380"},"Amazon/ACY2":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 59 行","note":"390/380"},"Amazon/XEW5":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 59 行","note":"390/380"},"Amazon/DCA6":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 60 行","note":"390/380"},"Amazon/HGR2":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 60 行","note":"390/380"},"Amazon/HGR6":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 60 行","note":"390/380"},"Amazon/XLX1":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 60 行","note":"390/380"},"Amazon/MDT2":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 61 行","note":"390/380"},"Amazon/KRB5":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 61 行","note":"390/380"},"Amazon/CHO1":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 62 行","note":"390/380"},"Amazon/BWI1":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 63 行","note":"390/380"},"Amazon/BWI4":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 63 行","note":"390/380"},"Amazon/RIC1":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 63 行","note":"390/380"},"Amazon/KRB2":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 63 行","note":"390/380"},"Amazon/RMN3":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 63 行","note":"390/380"},"Amazon/XRI3":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 63 行","note":"390/380"},"Amazon/ORF2":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 64 行","note":"390/380"},"Amazon/ILG1":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 65 行","note":"390/380"},"Amazon/TEB9":{"bands":[[1,6,390],[6,null,380]],"source":"FBA报价 · 第 65 行","note":"390/380"},"Amazon/SWF1":{"bands":[[1,6,410],[6,null,400]],"source":"FBA报价 · 第 66 行","note":"410/400"},"Amazon/SWF2":{"bands":[[1,6,410],[6,null,400]],"source":"FBA报价 · 第 66 行","note":"410/400"},"Amazon/ALB1":{"bands":[[1,6,410],[6,null,400]],"source":"FBA报价 · 第 66 行","note":"410/400"},"Amazon/BDL2":{"bands":[[1,6,450],[6,null,440]],"source":"FBA报价 · 第 67 行","note":"450/440"},"Amazon/BDL6":{"bands":[[1,6,450],[6,null,440]],"source":"FBA报价 · 第 68 行","note":"450/440"},"Amazon/BOS7":{"bands":[[1,6,450],[6,null,440]],"source":"FBA报价 · 第 68 行","note":"450/440"},"Walmart/LAX1":{"bands":[[3,5,65],[6,null,60]],"source":"Walmart报价 · 第 3 行","note":"65"},"Walmart/LAX2":{"bands":[[3,5,65],[6,null,60]],"source":"Walmart报价 · 第 3 行","note":"65"},"Walmart/SMF1":{"bands":[[3,5,120],[6,null,110]],"source":"Walmart报价 · 第 4 行","note":"120"},"Walmart/PHX1":{"bands":[[3,5,120],[6,null,110]],"source":"Walmart报价 · 第 5 行","note":"120"},"Walmart/SLC1N":{"bands":[[3,5,230],[6,null,220]],"source":"Walmart报价 · 第 6 行","note":"230"},"Walmart/MEM1S":{"bands":[[3,5,290],[6,null,280]],"source":"Walmart报价 · 第 7 行","note":"290"},"Walmart/DFW2":{"bands":[[3,5,270],[6,null,260]],"source":"Walmart报价 · 第 8 行","note":"270"},"Walmart/DFW5":{"bands":[[3,5,270],[6,null,260]],"source":"Walmart报价 · 第 8 行","note":"270"},"Walmart/DFW6":{"bands":[[3,5,270],[6,null,260]],"source":"Walmart报价 · 第 8 行","note":"270"},"Walmart/CVG1":{"bands":[[3,5,330],[6,null,320]],"source":"Walmart报价 · 第 9 行","note":"330"},"Walmart/MCI1N":{"bands":[[3,5,290],[6,null,280]],"source":"Walmart报价 · 第 11 行","note":"290"},"Walmart/IND1":{"bands":[[3,5,290],[6,null,280]],"source":"Walmart报价 · 第 13 行","note":"290"},"Walmart/IND2":{"bands":[[3,5,290],[6,null,280]],"source":"Walmart报价 · 第 13 行","note":"290"},"Walmart/IND3":{"bands":[[3,5,290],[6,null,280]],"source":"Walmart报价 · 第 13 行","note":"290"},"Walmart/ATL1":{"bands":[[3,5,330],[6,null,320]],"source":"Walmart报价 · 第 14 行","note":"330"},"Walmart/ATL3":{"bands":[[3,5,330],[6,null,320]],"source":"Walmart报价 · 第 14 行","note":"330"},"Walmart/ORD1S":{"bands":[[3,5,300],[6,null,290]],"source":"Walmart报价 · 第 15 行","note":"300"},"Walmart/PHL1S":{"bands":[[3,5,390],[6,null,380]],"source":"Walmart报价 · 第 16 行","note":"390"},"Walmart/PHL2":{"bands":[[3,5,390],[6,null,380]],"source":"Walmart报价 · 第 16 行","note":"390"},"Walmart/PHL6S":{"bands":[[3,5,390],[6,null,380]],"source":"Walmart报价 · 第 16 行","note":"390"},"Walmart/PHL5S":{"bands":[[3,5,390],[6,null,380]],"source":"Walmart报价 · 第 16 行","note":"390"},"Walmart/PHL4N":{"bands":[[3,5,390],[6,null,380]],"source":"Walmart报价 · 第 16 行","note":"390"},"Walmart/MCO1":{"bands":[[3,5,400],[6,null,390]],"source":"Walmart报价 · 第 18 行","note":"400"}},"warnings":[]},"QIHANG":{"file":"QIHANG 海外仓提拆派11月VIP报价单(1).xlsx","rates":{"Amazon/ONT8":{"bands":[[1,null,30]],"source":"Amazon Walmart卡派报价 · 第 5 行","note":"30"},"Amazon/LGB8":{"bands":[[1,null,30]],"source":"Amazon Walmart卡派报价 · 第 6 行","note":"30"},"Amazon/LAX9":{"bands":[[1,null,30]],"source":"Amazon Walmart卡派报价 · 第 7 行","note":"30"},"Amazon/SBD1":{"bands":[[1,null,30]],"source":"Amazon Walmart卡派报价 · 第 8 行","note":"30"},"Amazon/LGB4":{"bands":[[1,null,45]],"source":"Amazon Walmart卡派报价 · 第 9 行","note":"45"},"Amazon/LGB6":{"bands":[[1,null,45]],"source":"Amazon Walmart卡派报价 · 第 9 行","note":"45"},"Amazon/LGB9":{"bands":[[1,null,45]],"source":"Amazon Walmart卡派报价 · 第 10 行","note":"45"},"Amazon/ONT9":{"bands":[[1,null,45]],"source":"Amazon Walmart卡派报价 · 第 11 行","note":"45"},"Amazon/SNA4":{"bands":[[1,null,45]],"source":"Amazon Walmart卡派报价 · 第 12 行","note":"45"},"Amazon/KRB1":{"bands":[[1,null,45]],"source":"Amazon Walmart卡派报价 · 第 13 行","note":"45"},"Amazon/KRB4":{"bands":[[1,null,45]],"source":"Amazon Walmart卡派报价 · 第 14 行","note":"45"},"Amazon/SBD2":{"bands":[[1,null,45]],"source":"Amazon Walmart卡派报价 · 第 15 行","note":"45"},"Amazon/JOT1":{"bands":[[1,null,45]],"source":"Amazon Walmart卡派报价 · 第 16 行","note":"45"},"Amazon/IUSP":{"bands":[[1,null,45]],"source":"Amazon Walmart卡派报价 · 第 17 行","note":"45"},"Amazon/XLX7":{"bands":[[1,null,45]],"source":"Amazon Walmart卡派报价 · 第 18 行","note":"45"},"Amazon/LAS1":{"bands":[[1,null,60]],"source":"Amazon Walmart卡派报价 · 第 19 行","note":"60"},"Amazon/VGT2":{"bands":[[1,null,60]],"source":"Amazon Walmart卡派报价 · 第 20 行","note":"60"},"Amazon/LAS6":{"bands":[[1,null,65]],"source":"Amazon Walmart卡派报价 · 第 21 行","note":"65"},"Amazon/RNO4":{"bands":[[1,null,120]],"source":"Amazon Walmart卡派报价 · 第 22 行","note":"120"},"Amazon/GYR2":{"bands":[[1,null,65]],"source":"Amazon Walmart卡派报价 · 第 23 行","note":"65"},"Amazon/GYR3":{"bands":[[1,null,65]],"source":"Amazon Walmart卡派报价 · 第 23 行","note":"65"},"Amazon/GEU2":{"bands":[[1,null,65]],"source":"Amazon Walmart卡派报价 · 第 24 行","note":"65"},"Amazon/GEU3":{"bands":[[1,null,65]],"source":"Amazon Walmart卡派报价 · 第 24 行","note":"65"},"Amazon/GEU5":{"bands":[[1,null,65]],"source":"Amazon Walmart卡派报价 · 第 24 行","note":"65"},"Amazon/PHX5":{"bands":[[1,null,70]],"source":"Amazon Walmart卡派报价 · 第 25 行","note":"70"},"Amazon/PHX7":{"bands":[[1,null,70]],"source":"Amazon Walmart卡派报价 · 第 26 行","note":"70"},"Amazon/AZA4":{"bands":[[1,null,70]],"source":"Amazon Walmart卡派报价 · 第 27 行","note":"70"},"Amazon/FAT2":{"bands":[[1,null,65]],"source":"Amazon Walmart卡派报价 · 第 28 行","note":"65"},"Amazon/SMF3":{"bands":[[1,null,65]],"source":"Amazon Walmart卡派报价 · 第 29 行","note":"65"},"Amazon/SCK4":{"bands":[[1,null,65]],"source":"Amazon Walmart卡派报价 · 第 30 行","note":"65"},"Amazon/MIT2":{"bands":[[1,null,65]],"source":"Amazon Walmart卡派报价 · 第 31 行","note":"65"},"Amazon/SMF6":{"bands":[[1,null,75]],"source":"Amazon Walmart卡派报价 · 第 32 行","note":"75"},"Amazon/OAK3":{"bands":[[1,null,70]],"source":"Amazon Walmart卡派报价 · 第 33 行","note":"70"},"Amazon/MCE1":{"bands":[[1,null,70]],"source":"Amazon Walmart卡派报价 · 第 34 行","note":"70"},"Amazon/SJC7":{"bands":[[1,null,70]],"source":"Amazon Walmart卡派报价 · 第 35 行","note":"70"},"Amazon/SCK1":{"bands":[[1,null,70]],"source":"Amazon Walmart卡派报价 · 第 36 行","note":"70"},"Amazon/QXY5":{"bands":[[1,null,70]],"source":"Amazon Walmart卡派报价 · 第 37 行","note":"70"},"Amazon/SLC2":{"bands":[[1,null,140]],"source":"Amazon Walmart卡派报价 · 第 38 行","note":"140"},"Amazon/DEN2":{"bands":[[1,null,180]],"source":"Amazon Walmart卡派报价 · 第 39 行","note":"180"},"Amazon/DEN8":{"bands":[[1,null,180]],"source":"Amazon Walmart卡派报价 · 第 40 行","note":"180"},"Amazon/PDX7":{"bands":[[1,null,170]],"source":"Amazon Walmart卡派报价 · 第 41 行","note":"170"},"Amazon/GEG2":{"bands":[[1,null,210]],"source":"Amazon Walmart卡派报价 · 第 42 行","note":"210"},"Amazon/PSC2":{"bands":[[1,null,180]],"source":"Amazon Walmart卡派报价 · 第 43 行","note":"180"},"Amazon/ABQ2":{"bands":[[1,null,150]],"source":"Amazon Walmart卡派报价 · 第 44 行","note":"150"},"Amazon/FTW1":{"bands":[[1,null,160]],"source":"Amazon Walmart卡派报价 · 第 45 行","note":"160"},"Amazon/FTW3":{"bands":[[1,null,160]],"source":"Amazon Walmart卡派报价 · 第 45 行","note":"160"},"Amazon/FTW5":{"bands":[[1,null,160]],"source":"Amazon Walmart卡派报价 · 第 45 行","note":"160"},"Amazon/FTW9":{"bands":[[1,null,160]],"source":"Amazon Walmart卡派报价 · 第 45 行","note":"160"},"Amazon/DFW6":{"bands":[[1,null,160]],"source":"Amazon Walmart卡派报价 · 第 46 行","note":"160"},"Amazon/SAT1":{"bands":[[1,null,155]],"source":"Amazon Walmart卡派报价 · 第 47 行","note":"155"},"Amazon/SAT4":{"bands":[[1,null,170]],"source":"Amazon Walmart卡派报价 · 第 48 行","note":"170"},"Amazon/IAH3":{"bands":[[1,null,170]],"source":"Amazon Walmart卡派报价 · 第 49 行","note":"170"},"Amazon/HOU7":{"bands":[[1,null,170]],"source":"Amazon Walmart卡派报价 · 第 50 行","note":"170"},"Amazon/HOU8":{"bands":[[1,null,170]],"source":"Amazon Walmart卡派报价 · 第 50 行","note":"170"},"Amazon/AMA1":{"bands":[[1,null,160]],"source":"Amazon Walmart卡派报价 · 第 51 行","note":"160"},"Amazon/LFT1":{"bands":[[1,null,210]],"source":"Amazon Walmart卡派报价 · 第 52 行","note":"210"},"Amazon/LIT2":{"bands":[[1,null,190]],"source":"Amazon Walmart卡派报价 · 第 53 行","note":"190"},"Amazon/MEM1":{"bands":[[1,null,160]],"source":"Amazon Walmart卡派报价 · 第 54 行","note":"160"},"Amazon/MEM6":{"bands":[[1,null,180]],"source":"Amazon Walmart卡派报价 · 第 55 行","note":"180"},"Amazon/MDW2":{"bands":[[1,null,160]],"source":"Amazon Walmart卡派报价 · 第 56 行","note":"160"},"Amazon/MDW4":{"bands":[[1,null,190]],"source":"Amazon Walmart卡派报价 · 第 57 行","note":"190"},"Amazon/MDW6":{"bands":[[1,null,190]],"source":"Amazon Walmart卡派报价 · 第 57 行","note":"190"},"Amazon/MDW9":{"bands":[[1,null,190]],"source":"Amazon Walmart卡派报价 · 第 57 行","note":"190"},"Amazon/RFD4":{"bands":[[1,null,190]],"source":"Amazon Walmart卡派报价 · 第 58 行","note":"190"},"Amazon/IGQ2":{"bands":[[1,null,190]],"source":"Amazon Walmart卡派报价 · 第 59 行","note":"190"},"Amazon/ORD2":{"bands":[[1,null,190]],"source":"Amazon Walmart卡派报价 · 第 60 行","note":"190"},"Amazon/STL4":{"bands":[[1,null,190]],"source":"Amazon Walmart卡派报价 · 第 61 行","note":"190"},"Amazon/DET2":{"bands":[[1,null,220]],"source":"Amazon Walmart卡派报价 · 第 62 行","note":"220"},"Amazon/LAN2":{"bands":[[1,null,220]],"source":"Amazon Walmart卡派报价 · 第 63 行","note":"220"},"Amazon/IND4":{"bands":[[1,null,190]],"source":"Amazon Walmart卡派报价 · 第 64 行","note":"190"},"Amazon/IND9":{"bands":[[1,null,160]],"source":"Amazon Walmart卡派报价 · 第 65 行","note":"160"},"Amazon/FWA4":{"bands":[[1,null,160]],"source":"Amazon Walmart卡派报价 · 第 66 行","note":"160"},"Amazon/MQJ1":{"bands":[[1,null,160]],"source":"Amazon Walmart卡派报价 · 第 67 行","note":"160"},"Amazon/BNA6":{"bands":[[1,null,200]],"source":"Amazon Walmart卡派报价 · 第 68 行","note":"200"},"Amazon/CMH2":{"bands":[[1,null,210]],"source":"Amazon Walmart卡派报价 · 第 69 行","note":"210"},"Amazon/CMH3":{"bands":[[1,null,210]],"source":"Amazon Walmart卡派报价 · 第 70 行","note":"210"},"Amazon/AKR1":{"bands":[[1,null,230]],"source":"Amazon Walmart卡派报价 · 第 71 行","note":"230"},"Amazon/OKC2":{"bands":[[1,null,190]],"source":"Amazon Walmart卡派报价 · 第 72 行","note":"190"},"Amazon/FOE1":{"bands":[[1,null,200]],"source":"Amazon Walmart卡派报价 · 第 73 行","note":"200"},"Amazon/ICT2":{"bands":[[1,null,200]],"source":"Amazon Walmart卡派报价 · 第 74 行","note":"200"},"Amazon/JVL1":{"bands":[[1,null,210]],"source":"Amazon Walmart卡派报价 · 第 75 行","note":"210"},"Amazon/STL3":{"bands":[[1,null,190]],"source":"Amazon Walmart卡派报价 · 第 76 行","note":"190"},"Amazon/MGE1":{"bands":[[1,null,230]],"source":"Amazon Walmart卡派报价 · 第 77 行","note":"230"},"Amazon/RYY2":{"bands":[[1,null,230]],"source":"Amazon Walmart卡派报价 · 第 78 行","note":"230"},"Amazon/CLT2":{"bands":[[1,null,230]],"source":"Amazon Walmart卡派报价 · 第 79 行","note":"230"},"Amazon/GSO1":{"bands":[[1,null,230]],"source":"Amazon Walmart卡派报价 · 第 80 行","note":"230"},"Amazon/RDU2":{"bands":[[1,null,250]],"source":"Amazon Walmart卡派报价 · 第 81 行","note":"250"},"Amazon/ORF2":{"bands":[[1,null,290]],"source":"Amazon Walmart卡派报价 · 第 82 行","note":"290"},"Amazon/TMB8":{"bands":[[1,null,340]],"source":"Amazon Walmart卡派报价 · 第 83 行","note":"340"},"Amazon/TPA2":{"bands":[[1,null,260]],"source":"Amazon Walmart卡派报价 · 第 84 行","note":"260"},"Amazon/TPA3":{"bands":[[1,null,260]],"source":"Amazon Walmart卡派报价 · 第 84 行","note":"260"},"Amazon/MCO2":{"bands":[[1,null,260]],"source":"Amazon Walmart卡派报价 · 第 85 行","note":"260"},"Amazon/ABE3":{"bands":[[1,null,260]],"source":"Amazon Walmart卡派报价 · 第 86 行","note":"260"},"Amazon/ABE4":{"bands":[[1,null,260]],"source":"Amazon Walmart卡派报价 · 第 86 行","note":"260"},"Amazon/ABE8":{"bands":[[1,null,260]],"source":"Amazon Walmart卡派报价 · 第 86 行","note":"260"},"Amazon/TEB3":{"bands":[[1,null,260]],"source":"Amazon Walmart卡派报价 · 第 87 行","note":"260"},"Amazon/TEB4":{"bands":[[1,null,260]],"source":"Amazon Walmart卡派报价 · 第 87 行","note":"260"},"Amazon/TEB6":{"bands":[[1,null,260]],"source":"Amazon Walmart卡派报价 · 第 87 行","note":"260"},"Amazon/TEB9":{"bands":[[1,null,260]],"source":"Amazon Walmart卡派报价 · 第 88 行","note":"260"},"Amazon/AVP1":{"bands":[[1,null,260]],"source":"Amazon Walmart卡派报价 · 第 89 行","note":"260"},"Amazon/SWF2":{"bands":[[1,null,290]],"source":"Amazon Walmart卡派报价 · 第 90 行","note":"290"},"Amazon/SWF1":{"bands":[[1,null,290]],"source":"Amazon Walmart卡派报价 · 第 91 行","note":"290"},"Walmart/LAX1":{"bands":[[1,null,30]],"source":"Amazon Walmart卡派报价 · 第 92 行","note":"30"},"Walmart/LAX2T":{"bands":[[1,null,30]],"source":"Amazon Walmart卡派报价 · 第 93 行","note":"30"}},"warnings":["Rate Valid From：11月2024年，请核实有效期"]},"Virexa":{"file":"Virexa11月报价单（本地散板）.xlsx","rates":{"Amazon/ONT8":{"bands":[[1,null,30]],"source":"FBA LTL · 第 5 行","note":"30"},"Amazon/LAX9":{"bands":[[1,null,30]],"source":"FBA LTL · 第 6 行","note":"30"},"Amazon/SBD1":{"bands":[[1,null,30]],"source":"FBA LTL · 第 7 行","note":"30"},"Amazon/LGB8":{"bands":[[1,null,30]],"source":"FBA LTL · 第 8 行","note":"30"},"Amazon/POC1":{"bands":[[1,null,45]],"source":"FBA LTL · 第 9 行","note":"45"},"Amazon/POC2":{"bands":[[1,null,45]],"source":"FBA LTL · 第 9 行","note":"45"},"Amazon/POC3":{"bands":[[1,null,45]],"source":"FBA LTL · 第 9 行","note":"45"},"Amazon/KRB1":{"bands":[[1,null,70]],"source":"FBA LTL · 第 10 行","note":"70"},"Amazon/KRB4":{"bands":[[1,null,70]],"source":"FBA LTL · 第 10 行","note":"70"},"Amazon/LGB4":{"bands":[[1,null,45]],"source":"FBA LTL · 第 11 行","note":"45"},"Amazon/LGB6":{"bands":[[1,null,45]],"source":"FBA LTL · 第 11 行","note":"45"},"Amazon/SBD2":{"bands":[[1,null,45]],"source":"FBA LTL · 第 11 行","note":"45"},"Amazon/SNA4":{"bands":[[1,null,45]],"source":"FBA LTL · 第 11 行","note":"45"},"Amazon/IUSJ":{"bands":[[1,null,45]],"source":"FBA LTL · 第 12 行","note":"45"},"Amazon/IUSQ":{"bands":[[1,null,45]],"source":"FBA LTL · 第 12 行","note":"45"},"Amazon/ONT2":{"bands":[[1,null,70]],"source":"FBA LTL · 第 13 行","note":"70"},"Amazon/ONT9":{"bands":[[1,null,70]],"source":"FBA LTL · 第 13 行","note":"70"},"Amazon/IUTI":{"bands":[[1,null,70]],"source":"FBA LTL · 第 13 行","note":"70"},"Amazon/LGB9":{"bands":[[1,null,70]],"source":"FBA LTL · 第 13 行","note":"70"},"Amazon/XLX7":{"bands":[[1,null,55]],"source":"FBA LTL · 第 14 行","note":"55"},"Amazon/PSP3":{"bands":[[1,null,55]],"source":"FBA LTL · 第 14 行","note":"55"},"Amazon/IUSP":{"bands":[[1,null,55]],"source":"FBA LTL · 第 14 行","note":"55"},"Amazon/IUSW":{"bands":[[1,null,55]],"source":"FBA LTL · 第 14 行","note":"55"},"Amazon/IUTL":{"bands":[[1,null,55]],"source":"FBA LTL · 第 14 行","note":"55"},"Amazon/SMF3":{"bands":[[1,null,85]],"source":"FBA LTL · 第 15 行","note":"85"},"Amazon/SCK4":{"bands":[[1,null,85]],"source":"FBA LTL · 第 16 行","note":"85"},"Amazon/MIT2":{"bands":[[1,null,90]],"source":"FBA LTL · 第 17 行","note":"90"},"Amazon/TCY1":{"bands":[[1,null,90]],"source":"FBA LTL · 第 17 行","note":"90"},"Amazon/TCY2":{"bands":[[1,null,90]],"source":"FBA LTL · 第 17 行","note":"90"},"Amazon/HLI2":{"bands":[[1,null,90]],"source":"FBA LTL · 第 17 行","note":"90"},"Amazon/FAT2":{"bands":[[1,null,90]],"source":"FBA LTL · 第 17 行","note":"90"},"Amazon/MCE1":{"bands":[[1,null,90]],"source":"FBA LTL · 第 17 行","note":"90"},"Amazon/OAK3":{"bands":[[1,null,90]],"source":"FBA LTL · 第 18 行","note":"90"},"Amazon/SCK1":{"bands":[[1,null,90]],"source":"FBA LTL · 第 18 行","note":"90"},"Amazon/SCK8":{"bands":[[1,null,90]],"source":"FBA LTL · 第 18 行","note":"90"},"Amazon/SJC7":{"bands":[[1,null,90]],"source":"FBA LTL · 第 18 行","note":"90"},"Amazon/QXY8":{"bands":[[1,null,90]],"source":"FBA LTL · 第 18 行","note":"90"},"Amazon/MCC1":{"bands":[[1,null,90]],"source":"FBA LTL · 第 18 行","note":"90"},"Amazon/SMF6":{"bands":[[1,null,90]],"source":"FBA LTL · 第 18 行","note":"90"},"Amazon/SMF7":{"bands":[[1,null,115]],"source":"FBA LTL · 第 19 行","note":"115"},"Amazon/SCK3":{"bands":[[1,null,115]],"source":"FBA LTL · 第 19 行","note":"115"},"Amazon/LAS1":{"bands":[[1,null,70]],"source":"FBA LTL · 第 20 行","note":"70"},"Amazon/VGT2":{"bands":[[1,null,70]],"source":"FBA LTL · 第 20 行","note":"70"},"Amazon/LAS6":{"bands":[[1,null,75]],"source":"FBA LTL · 第 21 行","note":"75"},"Amazon/LAS7":{"bands":[[1,null,75]],"source":"FBA LTL · 第 21 行","note":"75"},"Amazon/GYR2":{"bands":[[1,null,80]],"source":"FBA LTL · 第 22 行","note":"80"},"Amazon/GYR3":{"bands":[[1,null,80]],"source":"FBA LTL · 第 22 行","note":"80"},"Amazon/GEU2":{"bands":[[1,null,80]],"source":"FBA LTL · 第 22 行","note":"80"},"Amazon/GEU3":{"bands":[[1,null,80]],"source":"FBA LTL · 第 22 行","note":"80"},"Amazon/GEU5":{"bands":[[1,null,80]],"source":"FBA LTL · 第 22 行","note":"80"},"Amazon/IUTE":{"bands":[[1,null,80]],"source":"FBA LTL · 第 22 行","note":"80"},"Amazon/AZA4":{"bands":[[1,null,120]],"source":"FBA LTL · 第 23 行","note":"120"},"Amazon/PHX3":{"bands":[[1,null,115]],"source":"FBA LTL · 第 24 行","note":"115"},"Amazon/PHX5":{"bands":[[1,null,115]],"source":"FBA LTL · 第 24 行","note":"115"},"Amazon/PHX6":{"bands":[[1,null,115]],"source":"FBA LTL · 第 24 行","note":"115"},"Amazon/PHX7":{"bands":[[1,null,115]],"source":"FBA LTL · 第 24 行","note":"115"},"Amazon/BFI3":{"bands":[[1,6,260],[7,null,250]],"source":"FBA LTL · 第 25 行","note":"260"},"Amazon/BFI7":{"bands":[[1,6,260],[7,null,250]],"source":"FBA LTL · 第 25 行","note":"260"},"Amazon/BFI9":{"bands":[[1,6,260],[7,null,250]],"source":"FBA LTL · 第 25 行","note":"260"},"Amazon/PDX6":{"bands":[[1,6,260],[7,null,250]],"source":"FBA LTL · 第 26 行","note":"260"},"Amazon/PDX7":{"bands":[[1,6,260],[7,null,250]],"source":"FBA LTL · 第 26 行","note":"260"},"Amazon/PSC2":{"bands":[[1,null,210]],"source":"FBA LTL · 第 27 行","note":"210"},"Amazon/GEG2":{"bands":[[1,6,260],[7,null,250]],"source":"FBA LTL · 第 28 行","note":"260"},"Amazon/IWA6":{"bands":[[1,null,250]],"source":"FBA LTL · 第 29 行","note":"250"},"Amazon/SLC2":{"bands":[[1,null,150]],"source":"FBA LTL · 第 30 行","note":"150"},"Amazon/SLC3":{"bands":[[1,null,150]],"source":"FBA LTL · 第 30 行","note":"150"},"Amazon/ABQ1":{"bands":[[1,null,150]],"source":"FBA LTL · 第 31 行","note":"150"},"Amazon/ABQ2":{"bands":[[1,null,150]],"source":"FBA LTL · 第 31 行","note":"150"},"Amazon/DEN2":{"bands":[[1,6,230],[7,null,220]],"source":"FBA LTL · 第 32 行","note":"230"},"Amazon/DEN7":{"bands":[[1,6,230],[7,null,220]],"source":"FBA LTL · 第 32 行","note":"230"},"Amazon/DEN8":{"bands":[[1,6,230],[7,null,220]],"source":"FBA LTL · 第 32 行","note":"230"},"Amazon/FTW1":{"bands":[[1,null,200]],"source":"FBA LTL · 第 33 行","note":"200"},"Amazon/FTW2":{"bands":[[1,6,210],[7,null,200]],"source":"FBA LTL · 第 34 行","note":"210"},"Amazon/FTW3":{"bands":[[1,6,210],[7,null,200]],"source":"FBA LTL · 第 34 行","note":"210"},"Amazon/FTW5":{"bands":[[1,6,210],[7,null,200]],"source":"FBA LTL · 第 34 行","note":"210"},"Amazon/FTW9":{"bands":[[1,6,210],[7,null,200]],"source":"FBA LTL · 第 34 行","note":"210"},"Amazon/DFW6":{"bands":[[1,6,240],[7,null,230]],"source":"FBA LTL · 第 35 行","note":"240"},"Amazon/IUSF":{"bands":[[1,6,240],[7,null,230]],"source":"FBA LTL · 第 35 行","note":"240"},"Amazon/SAT1":{"bands":[[1,6,220],[7,null,210]],"source":"FBA LTL · 第 36 行","note":"220"},"Amazon/SAT4":{"bands":[[1,6,220],[7,null,210]],"source":"FBA LTL · 第 36 行","note":"220"},"Amazon/SAT6":{"bands":[[1,6,220],[7,null,210]],"source":"FBA LTL · 第 36 行","note":"220"},"Amazon/HOU3":{"bands":[[1,6,220],[7,null,210]],"source":"FBA LTL · 第 37 行","note":"220"},"Amazon/HOU7":{"bands":[[1,6,220],[7,null,210]],"source":"FBA LTL · 第 37 行","note":"220"},"Amazon/HOU8":{"bands":[[1,6,220],[7,null,210]],"source":"FBA LTL · 第 37 行","note":"220"},"Amazon/IAH3":{"bands":[[1,6,220],[7,null,210]],"source":"FBA LTL · 第 37 行","note":"220"},"Amazon/AMA1":{"bands":[[1,6,220],[7,null,210]],"source":"FBA LTL · 第 38 行","note":"220"},"Amazon/ITX3":{"bands":[[1,null,230]],"source":"FBA LTL · 第 39 行","note":"230"},"Amazon/MDW2":{"bands":[[1,null,240]],"source":"FBA LTL · 第 40 行","note":"240"},"Amazon/MDW6":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 41 行","note":"280"},"Amazon/MDW8":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 41 行","note":"280"},"Amazon/MDW9":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 41 行","note":"280"},"Amazon/IUSM":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 41 行","note":"280"},"Amazon/IGQ2":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 42 行","note":"280"},"Amazon/ORD2":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 42 行","note":"280"},"Amazon/STL3":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 43 行","note":"280"},"Amazon/STL4":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 43 行","note":"280"},"Amazon/STL6":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 44 行","note":"280"},"Amazon/RFD2":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 45 行","note":"280"},"Amazon/RFD4":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 45 行","note":"280"},"Amazon/SDF4":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 45 行","note":"280"},"Amazon/SDF8":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 45 行","note":"280"},"Amazon/IND9":{"bands":[[1,null,240]],"source":"FBA LTL · 第 46 行","note":"240"},"Amazon/IND2":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 47 行","note":"280"},"Amazon/IND4":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 47 行","note":"280"},"Amazon/IND5":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 47 行","note":"280"},"Amazon/MQJ2":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 47 行","note":"280"},"Amazon/FWA4":{"bands":[[1,null,240]],"source":"FBA LTL · 第 48 行","note":"240"},"Amazon/MQJ1":{"bands":[[1,null,240]],"source":"FBA LTL · 第 48 行","note":"240"},"Amazon/ABE4":{"bands":[[1,null,330]],"source":"FBA LTL · 第 49 行","note":"330"},"Amazon/ABE8":{"bands":[[1,null,330]],"source":"FBA LTL · 第 49 行","note":"330"},"Amazon/AVP1":{"bands":[[1,null,330]],"source":"FBA LTL · 第 49 行","note":"330"},"Amazon/TEB3":{"bands":[[1,null,340]],"source":"FBA LTL · 第 50 行","note":"340"},"Amazon/TEB4":{"bands":[[1,null,340]],"source":"FBA LTL · 第 50 行","note":"340"},"Amazon/TEB6":{"bands":[[1,null,340]],"source":"FBA LTL · 第 50 行","note":"340"},"Amazon/TEB9":{"bands":[[1,null,340]],"source":"FBA LTL · 第 50 行","note":"340"},"Amazon/PHL5":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 51 行","note":"350"},"Amazon/PHL6":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 51 行","note":"350"},"Amazon/HGR6":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 51 行","note":"350"},"Amazon/ILG1":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 51 行","note":"350"},"Amazon/PIT2":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 52 行","note":"350"},"Amazon/HIA1":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 52 行","note":"350"},"Amazon/LBE1":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 52 行","note":"350"},"Amazon/MDT1":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 52 行","note":"350"},"Amazon/MDT4":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 52 行","note":"350"},"Amazon/MDT2":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 53 行","note":"350"},"Amazon/KRB5":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 53 行","note":"350"},"Amazon/IUSL":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 53 行","note":"350"},"Amazon/XLX1":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 53 行","note":"350"},"Amazon/HGR2":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 53 行","note":"350"},"Amazon/DCA6":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 54 行","note":"350"},"Amazon/ACY2":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 54 行","note":"350"},"Amazon/WBW2":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 54 行","note":"350"},"Amazon/IUST":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 54 行","note":"350"},"Amazon/BWI4":{"bands":[[1,6,330],[7,null,320]],"source":"FBA LTL · 第 55 行","note":"330"},"Amazon/RIC1":{"bands":[[1,6,330],[7,null,320]],"source":"FBA LTL · 第 55 行","note":"330"},"Amazon/RIC3":{"bands":[[1,6,330],[7,null,320]],"source":"FBA LTL · 第 55 行","note":"330"},"Amazon/KRB2":{"bands":[[1,6,330],[7,null,320]],"source":"FBA LTL · 第 55 行","note":"330"},"Amazon/CHO1":{"bands":[[1,6,330],[7,null,320]],"source":"FBA LTL · 第 55 行","note":"330"},"Amazon/RMN3":{"bands":[[1,6,330],[7,null,320]],"source":"FBA LTL · 第 55 行","note":"330"},"Amazon/ORF2":{"bands":[[1,6,330],[7,null,320]],"source":"FBA LTL · 第 55 行","note":"330"},"Amazon/XRI3":{"bands":[[1,6,330],[7,null,320]],"source":"FBA LTL · 第 55 行","note":"330"},"Amazon/SWF2":{"bands":[[1,null,360]],"source":"FBA LTL · 第 56 行","note":"360"},"Amazon/SWF1":{"bands":[[1,null,360]],"source":"FBA LTL · 第 56 行","note":"360"},"Amazon/AKR1":{"bands":[[1,6,300],[7,null,290]],"source":"FBA LTL · 第 57 行","note":"300"},"Amazon/CMH2":{"bands":[[1,6,260],[7,null,250]],"source":"FBA LTL · 第 58 行","note":"260"},"Amazon/CMH3":{"bands":[[1,6,260],[7,null,250]],"source":"FBA LTL · 第 58 行","note":"260"},"Amazon/CMH6":{"bands":[[1,6,260],[7,null,250]],"source":"FBA LTL · 第 58 行","note":"260"},"Amazon/TOL3":{"bands":[[1,6,260],[7,null,250]],"source":"FBA LTL · 第 58 行","note":"260"},"Amazon/JVL1":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 59 行","note":"280"},"Amazon/DET1":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 60 行","note":"280"},"Amazon/DET2":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 60 行","note":"280"},"Amazon/LAN2":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 60 行","note":"280"},"Amazon/IMO1":{"bands":[[1,null,250]],"source":"FBA LTL · 第 61 行","note":"250"},"Amazon/OKC2":{"bands":[[1,6,220],[7,null,210]],"source":"FBA LTL · 第 62 行","note":"220"},"Amazon/TUL2":{"bands":[[1,6,240],[7,null,230]],"source":"FBA LTL · 第 63 行","note":"240"},"Amazon/LIT2":{"bands":[[1,6,250],[7,null,240]],"source":"FBA LTL · 第 64 行","note":"250"},"Amazon/LFT1":{"bands":[[1,6,270],[7,null,260]],"source":"FBA LTL · 第 65 行","note":"270"},"Amazon/MEM1":{"bands":[[1,null,240]],"source":"FBA LTL · 第 66 行","note":"240"},"Amazon/MEM2":{"bands":[[1,6,250],[7,null,240]],"source":"FBA LTL · 第 67 行","note":"250"},"Amazon/MEM6":{"bands":[[1,6,250],[7,null,240]],"source":"FBA LTL · 第 67 行","note":"250"},"Amazon/MEM8":{"bands":[[1,6,250],[7,null,240]],"source":"FBA LTL · 第 67 行","note":"250"},"Amazon/CHA2":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 68 行","note":"280"},"Amazon/BNA2":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 68 行","note":"280"},"Amazon/BNA6":{"bands":[[1,6,280],[7,null,270]],"source":"FBA LTL · 第 68 行","note":"280"},"Amazon/FOE1":{"bands":[[1,6,250],[7,null,240]],"source":"FBA LTL · 第 69 行","note":"250"},"Amazon/ICT2":{"bands":[[1,6,250],[7,null,240]],"source":"FBA LTL · 第 69 行","note":"250"},"Amazon/MKC4":{"bands":[[1,6,250],[7,null,240]],"source":"FBA LTL · 第 69 行","note":"250"},"Amazon/MCI3":{"bands":[[1,6,250],[7,null,240]],"source":"FBA LTL · 第 69 行","note":"250"},"Amazon/MCI4":{"bands":[[1,6,260],[7,null,250]],"source":"FBA LTL · 第 70 行","note":"260"},"Amazon/HSV1":{"bands":[[1,6,340],[7,null,330]],"source":"FBA LTL · 第 71 行","note":"340"},"Amazon/HSV2":{"bands":[[1,6,340],[7,null,330]],"source":"FBA LTL · 第 71 行","note":"340"},"Amazon/CLT2":{"bands":[[1,6,300],[7,null,290]],"source":"FBA LTL · 第 72 行","note":"300"},"Amazon/GSO1":{"bands":[[1,6,310],[7,null,300]],"source":"FBA LTL · 第 73 行","note":"310"},"Amazon/RDU2":{"bands":[[1,6,310],[7,null,300]],"source":"FBA LTL · 第 73 行","note":"310"},"Amazon/RDU4":{"bands":[[1,6,310],[7,null,300]],"source":"FBA LTL · 第 73 行","note":"310"},"Amazon/CLT3":{"bands":[[1,6,330],[7,null,320]],"source":"FBA LTL · 第 74 行","note":"330"},"Amazon/CLT6":{"bands":[[1,6,330],[7,null,320]],"source":"FBA LTL · 第 74 行","note":"330"},"Amazon/XLX6":{"bands":[[1,6,330],[7,null,320]],"source":"FBA LTL · 第 74 行","note":"330"},"Amazon/GSP1":{"bands":[[1,6,330],[7,null,320]],"source":"FBA LTL · 第 75 行","note":"330"},"Amazon/IUSR":{"bands":[[1,6,330],[7,null,320]],"source":"FBA LTL · 第 75 行","note":"330"},"Amazon/ATL8":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 76 行","note":"350"},"Amazon/RYY2":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 76 行","note":"350"},"Amazon/SAV3":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 76 行","note":"350"},"Amazon/MGE1":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 76 行","note":"350"},"Amazon/MGE3":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 76 行","note":"350"},"Amazon/MGE5":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 77 行","note":"350"},"Amazon/MGE7":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 77 行","note":"350"},"Amazon/JAX3":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 78 行","note":"350"},"Amazon/TPA2":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 78 行","note":"350"},"Amazon/TPA3":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 78 行","note":"350"},"Amazon/TPA6":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 78 行","note":"350"},"Amazon/MCO2":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 78 行","note":"350"},"Amazon/PBI2":{"bands":[[1,6,360],[7,null,350]],"source":"FBA LTL · 第 79 行","note":"360"},"Amazon/PBI3":{"bands":[[1,6,360],[7,null,350]],"source":"FBA LTL · 第 79 行","note":"360"},"Amazon/TMB8":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 80 行","note":"350"},"Amazon/MIA2":{"bands":[[1,6,350],[7,null,340]],"source":"FBA LTL · 第 80 行","note":"350"},"Amazon/IMS1":{"bands":[[1,null,270]],"source":"FBA LTL · 第 81 行","note":"270"},"Walmart/LAX1":{"bands":[[1,null,45]],"source":"其他电商平台报价 · 第 5 行","note":"45"},"Walmart/LAX2":{"bands":[[1,null,45]],"source":"其他电商平台报价 · 第 6 行","note":"45"},"Walmart/PHX1":{"bands":[[1,6,120],[7,null,110]],"source":"其他电商平台报价 · 第 7 行","note":"120"},"Walmart/SMF1":{"bands":[[1,6,120],[7,null,115]],"source":"其他电商平台报价 · 第 8 行","note":"120"},"Walmart/DFW2":{"bands":[[1,6,230],[7,null,220]],"source":"其他电商平台报价 · 第 9 行","note":"230"},"Walmart/DFW5":{"bands":[[1,6,230],[7,null,220]],"source":"其他电商平台报价 · 第 10 行","note":"230"},"Walmart/DFW6":{"bands":[[1,6,230],[7,null,220]],"source":"其他电商平台报价 · 第 11 行","note":"230"},"Walmart/MEM1":{"bands":[[1,6,290],[7,null,280]],"source":"其他电商平台报价 · 第 12 行","note":"290"},"Walmart/IND1":{"bands":[[1,6,290],[7,null,280]],"source":"其他电商平台报价 · 第 13 行","note":"290"},"Walmart/IND2":{"bands":[[1,6,290],[7,null,280]],"source":"其他电商平台报价 · 第 14 行","note":"290"},"Walmart/IND3":{"bands":[[1,6,290],[7,null,280]],"source":"其他电商平台报价 · 第 15 行","note":"290"},"Walmart/PHL2":{"bands":[[1,6,340],[7,null,330]],"source":"其他电商平台报价 · 第 18 行","note":"340"}},"warnings":[]}};
+
+</script>
+<script>
+const companies = {DONGFENG:'东风', QIHANG:'启航', '酷派':'酷派', Virexa:'小桃'};
+const layouts = {
+ DONGFENG: [['FBA LTL','Amazon',0,1,'flat'],['Walmart LTL','Walmart',0,1,'three']],
+ QIHANG: [['Amazon Walmart卡派报价','Amazon',2,3,'mixed']],
+ '酷派': [['FBA报价','Amazon',1,2,'cool'],['Walmart报价','Walmart',0,1,'three']],
+ Virexa: [['FBA LTL','Amazon',1,2,'seven'],['其他电商平台报价','Walmart',0,1,'seven']]
+};
+function codes(value) {
+ let prefix = '';
+ const result = [];
+ for (const token of String(value??'').toUpperCase().replace(/专线/g,'').replace(/['’]/g,'').split(/[\/、,，\s\n]+/)) {
+  const full = token.match(/^([A-Z]{3})(\d[A-Z0-9]*|[A-Z])$/);
+  if (full) { prefix=full[1]; result.push(token); }
+  else if (prefix && /^\d[A-Z0-9]*$/.test(token)) result.push(prefix+token);
+  else if (token) return [];
+ }
+ return result;
+}
+function moneyValue(value) {
+ const cleaned = String(value??'').trim().replace(/[$,]/g,'');
+ return /^\d+(?:\.\d+)?$/.test(cleaned) && Number(cleaned)>0 ? Number(cleaned) : null;
+}
+function parseRates(company, workbook) {
+ const rates = {};
+ const warnings = [];
+ for(const [name, platform, codeCol, price, format] of layouts[company]) {
+  const sheet=workbook[name];
+  if (!sheet) { warnings.push('缺少工作表 '+name); continue; }
+  const {rows,merges}=sheet;
+  const cell=(r,c)=>{
+   const merge=merges.find(([r1,c1,r2,c2])=>r>=r1&&r<=r2&&c>=c1&&c<=c2);
+   return merge ? rows[merge[0]]?.[merge[1]] : rows[r]?.[c];
+  };
+  let group=platform;
+  let started=false;
+  let coolTier=false;
+  for(let r=0;r<rows.length;r++){
+   const row=rows[r]??[];
+   const label=String(row[codeCol]??'').trim();
+   const heading=label.toUpperCase();
+   if (/^(FBA|FBA代码|FC|WALMART|WALMART FC)$/.test(heading)) {
+    started=true;
+    if (format==='cool' && /PALLETS/i.test(String(row[price]))) coolTier=true;
+    continue;
+   }
+   if(!started) continue;
+   if(company==='Virexa'&&platform==='Walmart'&&heading==='WAYFAIR') break;
+   if(format==='mixed'&&String(row[1]).trim().toUpperCase()==='WALMART') group='Walmart';
+   if (/^(UPS|FEDEX)(\/FEDEX)?$/i.test(label)) continue;
+   const ids=codes(label);
+   if(!ids.length) continue;
+   const first=cell(r,price);
+   const rawSecond=merges.some(([r1,c1,r2,c2])=>r>=r1&&r<=r2&&c1===price&&c2>=price+1);
+   const second=rawSecond?null:cell(r,price+1);
+   const pair=String(first??'').split('/');
+   const low=moneyValue(pair[0]);
+   const high=moneyValue(pair.length===2?pair[1]:second);
+   const tier=format==='cool'&&(pair.length===2||high!==null||coolTier&&!rawSecond);
+   const bands=format==='three'?[[3,5,low],[6,null,high]]:
+    format==='seven'&&high!==null?[[1,6,low],[7,null,high]]:
+    tier?[[1,6,low],[6,null,high]]:
+    [[1,null,low]];
+   for(const id of ids){
+    const key=group+'/'+id;
+    const entry={bands,source:name+' · 第 '+(r+1)+' 行',note: String(row[price]??first??'').trim()};
+    const prev=rates[key];
+    if (prev && JSON.stringify(prev.bands)!==JSON.stringify(bands)) {
+     rates[key]={bands:[],source:prev.source+'；'+entry.source,note:'同仓报价冲突，待确认'};
+    } else if(!prev) rates[key]=entry;
+   }
+  }
+ }
+ if(company==='QIHANG'){
+  const notice=workbook['Amazon Walmart卡派报价']?.rows.flat().find(value=>typeof value==='string'&&/rate valid from/i.test(value));
+  if(notice) warnings.push(notice+'，请核实有效期');
+ }
+ if(!Object.values(rates).some(entry=>entry.bands.some(b=>b[2]!==null))) throw Error('未识别到有效报价。请使用该公司的原表结构和工作表名称。');
+ return {rates,warnings};
+}
+function rateAt(entry, qty){
+ if(!entry) return null;
+ const prices=[...new Set(entry.bands.filter(([a,b,p])=>qty>=a&&(b===null||qty<=b)&&p!==null).map(b=>b[2]))];
+ return prices.length===1?prices[0]:null;
+}
+if(typeof module!=='undefined') module.exports={parseRates,rateAt,codes};
+
+function parseThirdParty(workbook) {
+ const sheet=workbook['散板报价'];
+ const header=['平台','仓号','最少板数','最多板数','USD/板'];
+ if(!sheet||!header.every((label,i)=>String(sheet.rows[0]?.[i]).trim()===label)) {
+  throw Error('请使用第三方模板，保留「散板报价」工作表和表头。');
+ }
+ const rates={};
+ sheet.rows.forEach((row,index)=>{
+  if(index===0||!row?.some(v=>String(v??'').trim())) return;
+  const [rawPlatform, warehouse, lower, upper, price, note]=row;
+  const name=String(rawPlatform??'').trim().toLowerCase();
+  const platform=['amazon','亚马逊'].includes(name)?'Amazon':['walmart','沃尔玛'].includes(name)?'Walmart':null;
+  const offices=codes(warehouse);
+  const min=String(lower??'').trim()?quantity(lower):1;
+  const max=String(upper??'').trim()?quantity(upper):null;
+  const rate=moneyValue(price);
+  if(!platform||!offices.length||min===null||(String(upper??'').trim()&&max===null)||(max!==null&&max<min)||rate===null) {
+   throw Error('「散板报价」第 '+(index+1)+' 行的平台、仓号、板数范围或价格有误。');
+  }
+  for(const code of offices){
+   const key=platform+'/'+code;
+   const entry=rates[key]??={bands:[],source:[],note:[]};
+   entry.bands.push([min,max,rate]);
+   entry.source.push('散板报价 · 第 '+(index+1)+' 行');
+   if(note) entry.note.push(note);
+  }
+ });
+ if(!Object.keys(rates).length) throw Error('模板里还没有报价数据。');
+ for(const entry of Object.values(rates)){
+  entry.source=entry.source.join('；');
+  entry.note=entry.note.join('；');
+ }
+ return {rates,warnings:[]};
+}
+
+function resolveRate(entry, records, qty) {
+ if(qty===null) return {rate:null,kind:'unknown'};
+ const applicable=entry?.bands.filter(([min,max,price])=>price!==null&&qty>=min&&(max===null||qty<=max))??[];
+ if(applicable.length||entry?.bands.length===0){
+  const rate=rateAt(entry,qty);
+  return {rate,kind:rate===null?'unknown':'table',entry};
+ }
+ const manual=records.find(item=>item.qty===qty)??records.find(item=>item.qty===null);
+ if(manual) return {rate:manual.rate,kind:'manual',manual};
+ return {rate:null,kind:entry||records.length?'unknown':'missing',entry};
+}
+
+</script>
+<script>
+async function readWorkbook(file, wanted) {
+ const bytes=new Uint8Array(await file.arrayBuffer());
+ const view=new DataView(bytes.buffer);
+ const decoder=new TextDecoder();
+ const u16=offset=>view.getUint16(offset,true);
+ const u32=offset=>view.getUint32(offset,true);
+ let end=bytes.length-22;
+ while(end>=Math.max(0,bytes.length-65557)&&u32(end)!==0x06054b50) end--;
+ if(end<Math.max(0,bytes.length-65557)) throw Error('请选择有效的 .xlsx 文件');
+ const entries=new Map();
+ let pointer=u32(end+16);
+ for(let i=0;i<u16(end+10);i++){
+  if(u32(pointer)!==0x02014b50) throw Error('无法读取文件目录');
+  const nameLength=u16(pointer+28);
+  const name=decoder.decode(bytes.subarray(pointer+46,pointer+46+nameLength));
+  entries.set(name,{method:u16(pointer+10),size:u32(pointer+20),expanded:u32(pointer+24),start:u32(pointer+42)});
+  pointer+=46+nameLength+u16(pointer+30)+u16(pointer+32);
+ }
+ async function xml(path){
+  const entry=entries.get(path);
+  if(!entry) return null;
+  const {method,size,expanded,start}=entry;
+  if(expanded>25*1024*1024) throw Error('工作表过大');
+  const position=start+30+u16(start+26)+u16(start+28);
+  let data=bytes.subarray(position,position+size);
+  if(method===8) data=await new Response(new Blob([data]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).arrayBuffer();
+  else if(method!==0) throw Error('文件使用了不支持的压缩格式');
+  const result=new DOMParser().parseFromString(decoder.decode(data),'application/xml');
+  if(result.querySelector('parsererror')) throw Error('工作表内容损坏');
+  return result;
+ }
+ const elements=(doc,name)=>Array.from(doc?.getElementsByTagNameNS('*',name)??[]);
+ const workbook=await xml('xl/workbook.xml');
+ const rels=await xml('xl/_rels/workbook.xml.rels');
+ const strings=elements(await xml('xl/sharedStrings.xml'),'si').map(el=>elements(el,'t').map(x=>x.textContent).join(''));
+ const paths=new Map(elements(rels,'Relationship').map(r=>[r.getAttribute('Id'),r.getAttribute('Target')]));
+ const loc=address=>{
+  const match=address.match(/^([A-Z]+)(\d+)$/);
+  if(!match) throw Error('无法读取单元格地址');
+  return [Number(match[2])-1,[...match[1]].reduce((n,char)=>n*26+char.charCodeAt(0)-64,0)-1];
+ };
+ const sheets={};
+ for(const sheet of elements(workbook,'sheet')){
+  const name=sheet.getAttribute('name');
+  if(!wanted.includes(name)) continue;
+  const relationship=sheet.getAttributeNS('http://schemas.openxmlformats.org/officeDocument/2006/relationships','id')??sheet.getAttribute('r:id');
+  const target=paths.get(relationship);
+  if(!target) continue;
+  const doc=await xml(target.startsWith('/')?target.slice(1):'xl/'+target);
+  const rows=[];
+  for(const el of elements(doc,'c')){
+   const [r,c]=loc(el.getAttribute('r'));
+   if(c>8) continue;
+   const value=elements(el,'v')[0]?.textContent;
+   const type=el.getAttribute('t');
+   (rows[r]??=[])[c]=type==='s'?strings[Number(value)]:type==='inlineStr'?elements(el,'t').map(tags=>tags.textContent).join(''):value??null;
+  }
+  const merges=elements(doc,'mergeCell').map(el=>el.getAttribute('ref').split(':').flatMap(loc));
+  sheets[name]={rows,merges};
+ }
+ return sheets;
+}
+
+</script>
+<script>
+const byId=id=>document.getElementById(id);
+
+const usd=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2,minimumFractionDigits:0});
+const fmt=n=>n===null?'—':usd.format(n);
+const signed=n=>n===null?'—':(n>0?'+':'')+fmt(n);
+const safe=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const title=key=>key.startsWith('Amazon')?'亚马逊':'沃尔玛';
+const code=key=>key.split('/')[1];
+const quantity=value=>Number.isSafeInteger(Number(value))&&Number(value)>0&&Number(value)<=9999?Number(value):null;
+const cacheKey='dongfeng-ltl-v1';
+let saved={};
+let manual={};
+try {
+ const data=JSON.parse(localStorage.getItem('dongfeng-ltl-v2'));
+ saved=data?.versions??JSON.parse(localStorage.getItem(cacheKey))??{};
+ manual=data?.manual??{};
+ for(const [id,name] of Object.entries(data?.vendors??{})) companies[id]=name;
+} catch {}
+const ids=Object.keys(companies);
+const versions=Object.fromEntries(ids.map(id=>[id,saved[id]??seed[id]??{rates:{},warnings:[],file:''}]));
+function persist(nextVersions=saved,nextManual=manual,vendors=Object.fromEntries(ids.filter(id=>!seed[id]).map(id=>[id,companies[id]]))){
+ localStorage.setItem('dongfeng-ltl-v2',JSON.stringify({versions:nextVersions,manual:nextManual,vendors}));
+ saved=nextVersions;
+ manual=nextManual;
+}
+const manualAt=(id,key)=>manual[id]?.[key]??[];
+let platform='全部';
+const selected=new Set(['Amazon/ONT8','Amazon/LGB8','Amazon/LAX9','Walmart/LAX1']);
+const quantities=new Map();
+function keys(){
+ return [...new Set(ids.flatMap(id=>[...Object.keys(versions[id].rates),...Object.keys(manual[id]??{})]))].sort();
+}
+function visible(){
+ const tokens=byId('query').value.trim().toUpperCase().split(/[\s,，;；、/]+/).filter(Boolean);
+ return keys().filter(key=>(platform==='全部'||key.startsWith(platform+'/'))&&(!tokens.length||tokens.some(token=>code(key).includes(token))));
+}
+function drawChoices(){
+ const candidates=visible();
+ byId('choices').innerHTML=candidates.map(key=>'<label class="choice" title="'+title(key)+'"><input type="checkbox" value="'+key+'" '+(selected.has(key)?'checked':'')+' aria-label="'+title(key)+' '+code(key)+'">'+code(key)+'<small>'+(key.startsWith('Walmart')?'沃':'亚')+'</small></label>').join('')||'<span class="minor">没有匹配的仓库</span>';
+ byId('select').disabled=!candidates.length;
+ byId('selected').textContent='找到 '+candidates.length+' 个仓 · 已选 '+selected.size+' 个仓（切换筛选时保留勾选）';
+}
+function comparison(){
+ return [...selected].map(key=>{
+  const qty=quantities.get(key)??quantity(byId('qty').value);
+  const resolved=ids.map(id=>resolveRate(versions[id].rates[key],manualAt(id,key),qty));
+  const rates=resolved.map(value=>value.rate);
+  const totals=rates.map(rate=>rate===null?null:Math.round(rate*qty*100)/100);
+  const available=totals.slice(1).filter(n=>n!==null);
+  const best=available.length?Math.min(...available):null;
+  const vendors=ids.slice(1).filter((id,i)=>best!==null&&totals[i+1]===best).map(id=>companies[id]).join(' / ');
+  const diff=totals[0]===null||best===null?null:Math.round((totals[0]-best)*100)/100;
+  return {key,qty,rates,totals,best,vendors,diff,resolved};
+ });
+}
+function drawResults(editing){
+ const rows=comparison();
+ const paired=rows.filter(r=>r.diff!==null);
+ const sum=callback=>paired.length?paired.reduce((total,row)=>total+callback(row),0):null;
+ byId('metrics').innerHTML=[
+  ['东风合计',fmt(sum(r=>r.totals[0])),'双方可比 '+paired.length+' / '+rows.length+' 仓'],
+  ['最低同行合计',fmt(sum(r=>r.best)),'各仓取最低已知同行价'],
+  ['东风合计差额',signed(sum(r=>r.diff)),'正数表示东风较高']
+ ].map(([label,value,note])=>'<div class="metric"><span>'+label+'</span><strong>'+value+'</strong><small>'+note+'</small></div>').join('');
+ const table=byId('results');
+ if(!editing){
+  const first=byId('own-heading');
+  first.parentElement.querySelectorAll('[data-vendor-heading]').forEach(cell=>cell.remove());
+  first.insertAdjacentHTML('afterend',ids.slice(1).map(id=>'<th data-vendor-heading>'+safe(companies[id])+'</th>').join(''));
+ }
+ const active=editing?.closest('tr');
+ const html=row=>{
+  const {key,qty,rates,totals,best,vendors,diff}=row;
+  return '<td><strong>'+code(key)+'</strong><small>'+title(key)+'</small></td><td><input type="number" min="1" max="9999" step="1" aria-label="'+code(key)+' 板数" data-quantity="'+key+'" value="'+(qty??'')+'"></td>'+
+  ids.map((id,i)=>{
+   const {kind,rate}=row.resolved[i];
+   return '<td '+(i===0?'class="own"':'')+'>'+(kind!=='missing'?'<button class="rate" data-company="'+id+'" data-key="'+key+'">'+(rates[i]===null?'<span class="missing">待确认</span>':'<strong>'+fmt(rate)+'/板</strong><small>'+fmt(totals[i])+'/票</small>'+(kind==='manual'?'<small class="manual-tag">手动询价</small>':''))+'</button>':'<span class="missing">无报价</span>')+'</td>';
+  }).join('')+'<td>'+fmt(best)+'<small>'+safe(vendors)+'</small></td><td class="'+(diff<0?'low':diff>0?'high':'')+'"><strong>'+signed(diff)+'</strong></td>';
+ };
+ if(active){
+  const row=rows.find(r=>r.key===editing.dataset.quantity);
+  const temp=document.createElement('tr');
+  temp.innerHTML=html(row);
+  [...temp.children].slice(2).forEach((cell,index)=>active.children[index+2].replaceWith(cell));
+ } else {
+  table.innerHTML=rows.map(row=>'<tr>'+html(row)+'</tr>').join('')||'<tr><td colspan="'+(ids.length+4)+'">勾选上方仓库后查看比价。</td></tr>';
+ }
+ byId('export').disabled=!rows.length;
+}
+function drawSources(){
+ byId('sources').innerHTML=ids.map(id=>{
+  const version=versions[id];
+  return '<div class="source"><div><strong>'+safe(companies[id])+(id==='Virexa'?'（Virexa）':'')+'</strong><p>'+safe(version.file||'尚未上传报价表')+' · '+Object.keys(version.rates).length+' 个仓'+(version.updated?' · '+safe(version.updated):'')+'</p>'+version.warnings.map(w=>'<p class="high">'+safe(w)+'</p>').join('')+'</div><label class="file-button">上传新版<input type="file" accept=".xlsx" data-upload="'+id+'"></label></div>';
+ }).join('');
+}
+byId('platforms').addEventListener('click',event=>{
+ const button=event.target.closest('[data-platform]');
+ if(!button) return;
+ platform=button.dataset.platform;
+ byId('platforms').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b===button));
+ drawChoices();
+});
+byId('query').addEventListener('input',drawChoices);
+byId('qty').addEventListener('input',()=>drawResults());
+byId('choices').addEventListener('change',({target})=>{
+ if(target.checked) selected.add(target.value);
+ else selected.delete(target.value);
+ drawChoices();
+ [...byId('choices').querySelectorAll('input')].find(input=>input.value===target.value)?.focus({preventScroll:true});
+ drawResults();
+});
+byId('select').onclick=()=>{visible().forEach(key=>selected.add(key));drawChoices();drawResults();};
+byId('clear').onclick=()=>{selected.clear();drawChoices();drawResults();};
+byId('results').addEventListener('input',({target})=>{
+ if(!target.dataset.quantity) return;
+ if(target.value==='') quantities.delete(target.dataset.quantity);
+ else if(quantity(target.value)===null) return;
+ else quantities.set(target.dataset.quantity,quantity(target.value));
+ drawResults(target);
+});
+const dialog=document.createElement('dialog');
+document.body.append(dialog);
+byId('results').addEventListener('click',event=>{
+ const button=event.target.closest('[data-company]');
+ if(!button) return;
+ const {company,key}=button.dataset;
+ const version=versions[company];
+ const qty=comparison().find(row=>row.key===key)?.qty??null;
+ const result=resolveRate(version.rates[key],manualAt(company,key),qty);
+ const entry=result.entry;
+ const details=result.manual
+  ? '<p>手动询价 · '+(result.manual.qty===null?'不限板数':result.manual.qty+' 板')+' · '+fmt(result.rate)+'/板</p><p>'+safe(result.manual.note)+'</p><p>'+safe(result.manual.updated)+'</p>'
+  : entry
+   ? '<p>'+safe(version.file)+'</p><p>'+safe(entry.source)+'</p>'+entry.bands.map(([a,b,p])=>'<p>'+a+(b===null?' 板起':'–'+b+' 板')+' · '+(p===null?'无价格':fmt(p)+'/板')+'</p>').join('')+'<p>'+safe(entry.note)+'</p>'
+   : '<p>当前板数没有适用报价。</p>';
+ dialog.innerHTML='<h2>'+safe(companies[company])+' · '+code(key)+'</h2>'+details+'<form method="dialog"><button class="primary">关闭</button></form>';
+ dialog.showModal();
+});
+byId('sources').addEventListener('change',async ({target})=>{
+ const id=target.dataset.upload;
+ const file=target.files?.[0];
+ if(!id||!file) return;
+ target.disabled=true;
+ const message=byId('message');
+ message.textContent='正在读取 '+file.name;
+ try{
+  const layout=layouts[id];
+  const workbook=await readWorkbook(file,layout?layout.map(([sheet])=>sheet):['散板报价']);
+  const parsed=layout?parseRates(id,workbook):parseThirdParty(workbook);
+  if(parsed.warnings.some(w=>w.startsWith('缺少工作表'))) throw Error(parsed.warnings.join('；'));
+  const version={...parsed,file:file.name,updated:new Intl.DateTimeFormat('zh-CN',{dateStyle:'medium',timeStyle:'short'}).format(new Date())};
+  const next={...saved,[id]:version};
+  persist(next);
+  versions[id]=version;
+  drawSources();drawManual();drawChoices();drawResults();
+  message.textContent=companies[id]+'已更新，共 '+Object.keys(parsed.rates).length+' 个仓。';
+ }catch(error){message.textContent='更新失败，已保留原报价。'+error.message;target.disabled=false;target.value='';}
+});
+byId('export').onclick=()=>{
+ const rows=comparison();
+ const csv=[['平台','仓号','板数',...ids.flatMap(id=>[companies[id]+' USD/板',companies[id]+' USD/票',companies[id]+' 来源']), '最低同行','最低同行 USD/票','东风差额 USD/票'],
+ ...rows.map(r=>[title(r.key),code(r.key),r.qty,...ids.flatMap((id,i)=>[r.rates[i]??(r.resolved[i].kind==='missing'?'无报价':'待确认'),r.totals[i],r.resolved[i].kind==='manual'?'手动询价':r.resolved[i].kind==='table'?versions[id].file:'']),r.vendors,r.best,r.diff])];
+ const paired=rows.filter(r=>r.diff!==null);
+ if(paired.length) csv.push(['可比仓汇总',paired.length,null,null,paired.reduce((a,r)=>a+r.totals[0],0),...Array(ids.length*3-1).fill(null),paired.reduce((a,r)=>a+r.best,0),paired.reduce((a,r)=>a+r.diff,0)]);
+ const data=csv.map(row=>row.map(cell=>'"'+(typeof cell==='string'&&/^[=+@\-\t\r]/.test(cell)?"'"+cell:String(cell??'')).replaceAll('"','""')+'"').join(',')).join('\r\n');
+ const link=document.createElement('a');
+ link.href=URL.createObjectURL(new Blob(['\uFEFF',data],{type:'text/csv;charset=utf-8'}));
+ link.download='DONGFENG-LTL-比价.csv';
+ link.click();
+ setTimeout(()=>URL.revokeObjectURL(link.href),1000);
+};
+drawSources();drawChoices();drawResults();
+
+</script>
+<script>
+const vendorForm=byId('vendor-form');
+const manualForm=byId('manual-form');
+function showPage(){
+ const managing=location.hash==='#manage';
+ byId('compare-page').hidden=managing;
+ byId('manage-page').hidden=!managing;
+ byId('nav-compare').setAttribute('aria-current',managing?'false':'page');
+ byId('nav-manage').setAttribute('aria-current',managing?'page':'false');
+ window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',showPage);
+showPage();
+vendorForm.addEventListener('submit',event=>{
+ event.preventDefault();
+ const field=vendorForm.elements.vendor;
+ const name=field.value.trim();
+ const message=byId('message');
+ if(!name||[...Object.values(companies),'Virexa','QIHANG','COOL PAI'].some(label=>label.toUpperCase()===name.toUpperCase())){
+  message.textContent='请输入未添加过的第三方名称。';
+  return;
+ }
+ const id='vendor-'+(crypto.randomUUID?.() ?? Array.from(crypto.getRandomValues(new Uint8Array(16)), byte=>byte.toString(16).padStart(2,'0')).join(''));
+ const vendors=Object.fromEntries(ids.filter(key=>!seed[key]).map(key=>[key,companies[key]]));
+ try{
+  persist(saved,manual,{...vendors,[id]:name});
+  companies[id]=name;
+  ids.push(id);
+  versions[id]={rates:{},warnings:[],file:''};
+  field.value='';
+  drawSources();drawManual();drawResults();
+  manualForm.elements.company.value=id;
+  message.textContent='已添加 '+name+'，可上传报价表或录入单独询价。';
+ }catch(error){message.textContent='保存失败。'+error.message;}
+});
+function manualStatus(id,key,record){
+ const entry=versions[id].rates[key];
+ const bands=entry?.bands??[];
+ if(entry&&bands.length===0) return '表价冲突，待确认';
+ if(record.qty!==null){
+  const resolved=resolveRate(entry,[record],record.qty);
+  return resolved.kind==='table'?'表价优先':resolved.kind==='unknown'?'表价冲突，待确认':'手动价适用';
+ }
+ const priced=bands.filter(band=>band[2]!==null).sort((a,b)=>a[0]-b[0]);
+ let covered=0;
+ for(const [min,max] of priced){
+  if(min>covered+1) break;
+  covered=Math.max(covered,max??Infinity);
+ }
+ return covered===Infinity?'表价优先':priced.length?'表价覆盖部分板数':'手动价适用';
+}
+function drawManual(){
+ const select=manualForm.elements.company;
+ const prior=select.value;
+ select.innerHTML=ids.map(id=>'<option value="'+id+'">'+safe(companies[id])+'</option>').join('');
+ if(ids.includes(prior)) select.value=prior;
+ const rows=ids.flatMap(id=>Object.entries(manual[id]??{}).flatMap(([key,records])=>records.map(record=>{
+  const action=' data-id="'+id+'" data-key="'+key+'" data-qty="'+(record.qty??'')+'" ';
+  return '<tr><td>'+safe(companies[id])+'</td><td><strong>'+code(key)+'</strong><small>'+title(key)+'</small></td><td>'+(record.qty??'不限')+'</td><td>'+fmt(record.rate)+'/板</td><td>'+manualStatus(id,key,record)+'</td><td>'+safe(record.note)+'</td><td><button class="plain" data-edit'+action+'>编辑</button><button class="plain" data-delete'+action+'>移除</button></td></tr>';
+ })));
+ byId('manual-list').innerHTML=rows.join('')||'<tr><td colspan="7">还没有单独询价记录。</td></tr>';
+}
+manualForm.addEventListener('submit',event=>{
+ event.preventDefault();
+ const fields=manualForm.elements;
+ const id=fields.company.value;
+ const warehouse=fields.warehouse.value.trim().toUpperCase();
+ const qty=quantity(fields.pallets.value);
+ const rate=moneyValue(fields.price.value);
+ const message=byId('manual-message');
+ if(!ids.includes(id)||!/^([A-Z]{3})(\d[A-Z0-9]*|[A-Z])$/.test(warehouse)||(fields.pallets.value&&qty===null)||rate===null){
+  message.textContent='请核对仓号、适用板数和价格。';
+  return;
+ }
+ const key=fields.platform.value+'/'+warehouse;
+ const existing=manualAt(id,key);
+ const record={qty,rate,note:fields.note.value.trim(),updated:new Date().toLocaleString('zh-CN')};
+ const rows=[...existing.filter(item=>item.qty!==qty),record];
+ try{
+  persist(saved,{...manual,[id]:{...manual[id],[key]:rows}});
+  drawManual();drawChoices();drawResults();
+  message.textContent=companies[id]+' '+warehouse+' 已保存。'+manualStatus(id,key,record)+'。';
+ }catch(error){message.textContent='保存失败。'+error.message;}
+});
+byId('manual-list').addEventListener('click',event=>{
+ const button=event.target.closest('button');
+ if(!button) return;
+ const {id,key,qty:raw}=button.dataset;
+ const qty=quantity(raw);
+ const records=manualAt(id,key);
+ const record=records.find(item=>item.qty===qty);
+ if(!record) return;
+ if(button.hasAttribute('data-edit')){
+  const fields=manualForm.elements;
+  fields.company.value=id;
+  fields.platform.value=key.split('/')[0];
+  fields.warehouse.value=code(key);
+  fields.pallets.value=qty??'';
+  fields.price.value=record.rate;
+  fields.note.value=record.note;
+  fields.price.focus();
+  return;
+ }
+ if(!confirm('移除 '+companies[id]+' '+code(key)+' 的这条手动询价？')) return;
+ const companyRecords={...manual[id]};
+ const remaining=records.filter(item=>item.qty!==qty);
+ if(remaining.length) companyRecords[key]=remaining;
+ else delete companyRecords[key];
+ try{
+  persist(saved,{...manual,[id]:companyRecords});
+  drawManual();drawChoices();drawResults();
+  byId('manual-message').textContent='已移除手动询价。';
+ }catch(error){byId('manual-message').textContent='移除失败。'+error.message;}
+});
+drawManual();
+
+</script>
+</body></html>
